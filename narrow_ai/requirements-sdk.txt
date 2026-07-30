@@ -1,0 +1,2 @@
+# Optional administration/lifecycle client. Not required inside the model server.
+sap-ai-sdk-core

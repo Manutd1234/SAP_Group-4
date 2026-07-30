@@ -1,0 +1,59 @@
+apiVersion: ai.sap.com/v1alpha1
+kind: ServingTemplate
+metadata:
+  name: risksignal-serve
+  annotations:
+    scenarios.ai.sap.com/description: "Explainable financial-crime risk signals"
+    scenarios.ai.sap.com/name: "RiskSignal narrow AI"
+    executables.ai.sap.com/description: "Serve bounded transaction risk signals"
+    executables.ai.sap.com/name: "RiskSignal serving"
+    artifacts.ai.sap.com/risk-model.kind: "model"
+  labels:
+    scenarios.ai.sap.com/id: "risksignal-fincrime"
+    executables.ai.sap.com/id: "risksignal-serve"
+    ai.sap.com/version: "1.0.0"
+spec:
+  inputs:
+    parameters:
+      - name: modelName
+        type: string
+        default: "risksignal"
+    artifacts:
+      - name: risk-model
+  template:
+    apiVersion: serving.kserve.io/v1beta1
+    metadata:
+      annotations:
+        autoscaling.knative.dev/metric: concurrency
+        autoscaling.knative.dev/target: "1"
+    spec:
+      predictor:
+        imagePullSecrets:
+          - name: docker-registry-secret
+        minReplicas: 1
+        maxReplicas: 2
+        containers:
+          - name: kserve-container
+            image: ghcr.io/manutd1234/risksignal-narrow-ai:latest
+            imagePullPolicy: Always
+            ports:
+              - containerPort: 9001
+                protocol: TCP
+            env:
+              - name: STORAGE_URI
+                value: "{{inputs.artifacts.risk-model}}"
+              - name: MODEL_NAME
+                value: "{{inputs.parameters.modelName}}"
+            readinessProbe:
+              httpGet:
+                path: /healthz
+                port: 9001
+              initialDelaySeconds: 10
+              periodSeconds: 5
+            resources:
+              requests:
+                cpu: 500m
+                memory: 1Gi
+              limits:
+                cpu: "2"
+                memory: 4Gi

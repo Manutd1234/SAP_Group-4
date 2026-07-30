@@ -1,0 +1,55 @@
+apiVersion: argoproj.io/v1alpha1
+kind: WorkflowTemplate
+metadata:
+  name: risksignal-train
+  annotations:
+    scenarios.ai.sap.com/description: "Explainable financial-crime risk signals"
+    scenarios.ai.sap.com/name: "RiskSignal narrow AI"
+    executables.ai.sap.com/description: "Train bounded transaction risk classifier"
+    executables.ai.sap.com/name: "RiskSignal training"
+    artifacts.ai.sap.com/risk-data.kind: "dataset"
+    artifacts.ai.sap.com/risk-model.kind: "model"
+    artifacts.ai.sap.com/risk-model.description: "Validated RiskSignal model bundle"
+  labels:
+    scenarios.ai.sap.com/id: "risksignal-fincrime"
+    executables.ai.sap.com/id: "risksignal-train"
+    ai.sap.com/version: "1.0.0"
+spec:
+  imagePullSecrets:
+    - name: docker-registry-secret
+  entrypoint: train-pipeline
+  templates:
+    - name: train-pipeline
+      steps:
+        - - name: train-model
+            template: train-model
+    - name: train-model
+      inputs:
+        artifacts:
+          - name: risk-data
+            path: /app/data
+      outputs:
+        artifacts:
+          - name: risk-model
+            path: /app/model
+            globalName: risk-model
+            archive:
+              none: {}
+      container:
+        image: ghcr.io/manutd1234/risksignal-narrow-ai:latest
+        imagePullPolicy: Always
+        command:
+          - python
+          - /app/src/train.py
+        args:
+          - --data
+          - /app/data
+          - --output
+          - /app/model
+        resources:
+          requests:
+            cpu: 500m
+            memory: 1Gi
+          limits:
+            cpu: "2"
+            memory: 4Gi
