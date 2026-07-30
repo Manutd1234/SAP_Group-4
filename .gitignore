@@ -6,6 +6,11 @@ __pycache__/
 # C extensions
 *.so
 
+# Model binaries > 100MB
+narrow_ai/model/fincrime_heavy_ensemble.pkl
+*.bin
+*.tar.gz
+
 # Distribution / packaging
 .Python
 build/

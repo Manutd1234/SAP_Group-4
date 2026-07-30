@@ -1,21 +1,35 @@
 @import "tailwindcss";
 
 :root {
+  --sap-blue: #0a6ed1;
+  --sap-dark-blue: #00386b;
+  --sap-horizon-navy: #1d2d3e;
+  --sap-shell-bar: #354a5f;
+  --sap-background: #f5f7fa;
+  --sap-surface: #ffffff;
+  --sap-text-primary: #1d2d3e;
+  --sap-text-secondary: #556b82;
+  --sap-border: #d9e1e8;
+  --sap-positive: #107e3e;
+  --sap-critical: #bb0000;
+  --sap-warning: #e9730c;
+  --sap-informational: #0a6ed1;
+  
   --ink: #142033;
   --muted: #69758a;
   --line: #dce2e9;
   --soft-line: #e9edf2;
-  --canvas: #f3f6f8;
+  --canvas: #f5f7fa;
   --surface: #ffffff;
-  --navy: #071729;
+  --navy: #1d2d3e;
   --navy-2: #102940;
-  --blue: #0875e1;
+  --blue: #0a6ed1;
   --cyan: #00a3d7;
   --teal: #0a8976;
-  --red: #d7373f;
-  --orange: #d56a1f;
-  --green: #12805c;
-  --shadow: 0 10px 30px rgba(28, 44, 64, 0.07);
+  --red: #bb0000;
+  --orange: #e9730c;
+  --green: #107e3e;
+  --shadow: 0 4px 16px rgba(10, 110, 209, 0.08);
 }
 
 * {
