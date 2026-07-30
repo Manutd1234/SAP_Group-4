@@ -216,3 +216,17 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# RiskSignal web application
+node_modules/
+.next/
+.vinext/
+.wrangler/
+dist/
+.open-next/
+.DS_Store
+
+# Keep the source-side Sites build integration.
+!build/
+build/*
+!build/sites-vite-plugin.ts
