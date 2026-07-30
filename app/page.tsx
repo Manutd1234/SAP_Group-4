@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import CaseTable from "./components/CaseTable";
 
 type View = "overview" | "cases" | "workflow" | "architecture";
 type CaseStatus = "New" | "Investigating" | "Awaiting approval";
@@ -334,18 +335,13 @@ export default function Home() {
         )}
 
         {view === "cases" && (
-          <CaseWorkspace
-            selectedCase={selectedCase}
-            selectedId={selectedId}
-            onSelect={openCase}
-            response={response}
-            assistantMode={assistantMode}
-            onAsk={askAssistant}
-            query={query}
-            setQuery={setQuery}
-            decision={decision}
-            setDecision={setDecision}
-          />
+          <div className="max-w-full">
+            <div className="mb-4">
+              <h1 className="text-xl font-semibold text-[#1d2d3e]">Case Overview</h1>
+              <p className="text-xs text-[#6a7d8f] mt-0.5">Monitor and manage all open cases across priority levels · Click a row to view details</p>
+            </div>
+            <CaseTable />
+          </div>
         )}
 
         {view === "workflow" && <WorkflowStudio />}
