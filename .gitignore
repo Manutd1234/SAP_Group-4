@@ -225,6 +225,9 @@ node_modules/
 dist/
 .open-next/
 .DS_Store
+.local/
+**/.venv/
+**/__pycache__/
 
 # Keep the source-side Sites build integration.
 !build/

@@ -1,0 +1,49 @@
+name: Build narrow AI image
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+      - agent/complete-risk-workflows
+    paths:
+      - "narrow_ai/**"
+      - ".github/workflows/build-narrow-ai-image.yml"
+
+permissions:
+  contents: read
+  packages: write
+
+jobs:
+  validate-and-build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Confirm SAP AI Core application path
+        run: |
+          test -d narrow_ai/templates
+          test -f narrow_ai/templates/risksignal-training.yaml
+          test -f narrow_ai/templates/risksignal-serving.yaml
+
+      - name: Validate Python sources
+        run: python -m compileall -q narrow_ai/src
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Sign in to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build and publish
+        uses: docker/build-push-action@v6
+        with:
+          context: narrow_ai
+          push: true
+          tags: |
+            ghcr.io/manutd1234/risksignal-narrow-ai:latest
+            ghcr.io/manutd1234/risksignal-narrow-ai:${{ github.sha }}

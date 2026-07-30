@@ -71,3 +71,37 @@ test("ships governance and architecture artefacts", async () => {
     access(new URL("../app/_sites-preview", import.meta.url)),
   );
 });
+
+test("configures the SAP AI Core GitOps application path", async () => {
+  const [configText, training, serving] = await Promise.all([
+    readFile(
+      new URL("../narrow_ai/application-config.json", import.meta.url),
+      "utf8",
+    ),
+    readFile(
+      new URL(
+        "../narrow_ai/templates/risksignal-training.yaml",
+        import.meta.url,
+      ),
+      "utf8",
+    ),
+    readFile(
+      new URL(
+        "../narrow_ai/templates/risksignal-serving.yaml",
+        import.meta.url,
+      ),
+      "utf8",
+    ),
+  ]);
+  const config = JSON.parse(configText);
+
+  assert.equal(config.repositoryUrl, "https://github.com/Manutd1234/SAP_Group-4");
+  assert.equal(config.revision, "HEAD");
+  assert.equal(config.path, "narrow_ai/templates");
+  assert.match(training, /kind:\s*WorkflowTemplate/);
+  assert.match(training, /scenarios\.ai\.sap\.com\/id:\s*"risksignal-fincrime"/);
+  assert.match(training, /globalName:\s*risk-model/);
+  assert.match(serving, /kind:\s*ServingTemplate/);
+  assert.match(serving, /STORAGE_URI/);
+  assert.match(serving, /ghcr\.io\/manutd1234\/risksignal-narrow-ai:latest/);
+});

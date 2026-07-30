@@ -30,6 +30,20 @@ Open `http://localhost:3000`.
 
 The current demo uses realistic synthetic transactions and deterministic responses. It does not connect to a production SAP tenant, run a trained model or file a real SAR.
 
+## SAP AI Core application path
+
+The repository is configured for the AI Core workshop layout:
+
+```text
+Repository URL:    https://github.com/Manutd1234/SAP_Group-4
+Path in Repository: narrow_ai/templates
+Revision:           HEAD
+```
+
+Before the pull request is merged, use revision `agent/complete-risk-workflows` to test the templates from the branch. After merge, use `HEAD` as shown in the workshop guide.
+
+The folder contains a training `WorkflowTemplate` and inference `ServingTemplate`. See [narrow_ai/README.md](narrow_ai/README.md) for application synchronization, container publishing, HANA connectivity and local testing.
+
 ## Solution map
 
 | Capability | Proposed production service |
