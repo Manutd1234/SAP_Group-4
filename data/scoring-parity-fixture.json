@@ -1,0 +1,2740 @@
+[
+  {
+    "input": {
+      "LEGAL_NAME": "StreamLink Software PARTNERSHIP",
+      "INCORPORATION_COUNTRY_ID": 14,
+      "KYC_STATUS": "EXPIRED",
+      "KYC_RISK_RATING": "LOW",
+      "AMOUNT_USD": 1903669.36,
+      "SANCTIONS_HIT": true,
+      "PEP_ASSOCIATED": false,
+      "UBO_PEP_COUNT": 0,
+      "UBO_SANCTIONS_MATCH_COUNT": 0,
+      "FATF_STATUS": "BLACK_LIST",
+      "COUNTRY_RISK_SCORE": 16.0,
+      "PATTERN_RISK_SCORE": 17.0,
+      "BASELINE_TRANSACTION_COUNT": 0,
+      "BASELINE_AVG_AMOUNT": 0.0,
+      "RELATIONSHIP_YEARS": 6.33264887063655,
+      "REQUIRES_EDD": true,
+      "ADVERSE_MEDIA_FLAG": false,
+      "SLA_HOURS_LEFT": 0.0,
+      "ALERT_AGE_DAYS": 546.8874421296297
+    },
+    "expected": {
+      "weight_version": "v2.0-draft",
+      "risk_score": 63.4,
+      "risk_tier": "HIGH",
+      "evidence_confidence": 1.0,
+      "auto_clear_eligible": false,
+      "assigned_queue": "ESCALATE",
+      "queue_score": 89.02,
+      "reason_codes": [
+        {
+          "code": "RC-SANCTION-HIT",
+          "factor": "COUNTERPARTY",
+          "points": 30.0,
+          "description": "Sanctions match detected on entity or beneficial owner"
+        },
+        {
+          "code": "RC-FATF-JURISDICTION",
+          "factor": "JURISDICTION",
+          "points": 20.0,
+          "description": "High-risk FATF listed jurisdiction"
+        },
+        {
+          "code": "RC-HIGH-VALUE",
+          "factor": "EXPOSURE",
+          "points": 10.0,
+          "description": "High-value transaction exceeding threshold"
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "LEGAL_NAME": "H3 Biomedicine LLC",
+      "INCORPORATION_COUNTRY_ID": 7,
+      "KYC_STATUS": "VERIFIED",
+      "KYC_RISK_RATING": "LOW",
+      "AMOUNT_USD": 5567307.16,
+      "SANCTIONS_HIT": false,
+      "PEP_ASSOCIATED": true,
+      "UBO_PEP_COUNT": 1,
+      "UBO_SANCTIONS_MATCH_COUNT": 1,
+      "FATF_STATUS": "MEMBER",
+      "COUNTRY_RISK_SCORE": 35.0,
+      "PATTERN_RISK_SCORE": 95.0,
+      "BASELINE_TRANSACTION_COUNT": 0,
+      "BASELINE_AVG_AMOUNT": 0.0,
+      "RELATIONSHIP_YEARS": 2.6858316221765914,
+      "REQUIRES_EDD": true,
+      "ADVERSE_MEDIA_FLAG": false,
+      "SLA_HOURS_LEFT": 0.0,
+      "ALERT_AGE_DAYS": 53.77754629629629
+    },
+    "expected": {
+      "weight_version": "v2.0-draft",
+      "risk_score": 66.0,
+      "risk_tier": "HIGH",
+      "evidence_confidence": 1.0,
+      "auto_clear_eligible": false,
+      "assigned_queue": "ESCALATE",
+      "queue_score": 89.8,
+      "reason_codes": [
+        {
+          "code": "RC-SANCTION-HIT",
+          "factor": "COUNTERPARTY",
+          "points": 30.0,
+          "description": "Sanctions match detected on entity or beneficial owner"
+        },
+        {
+          "code": "RC-PATTERN-ANOMALY",
+          "factor": "STRUCTURAL",
+          "points": 19.0,
+          "description": "High transaction pattern anomaly detected"
+        },
+        {
+          "code": "RC-HIGH-VALUE",
+          "factor": "EXPOSURE",
+          "points": 10.0,
+          "description": "High-value transaction exceeding threshold"
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "LEGAL_NAME": "Spokeo PARTNERSHIP",
+      "INCORPORATION_COUNTRY_ID": 11,
+      "KYC_STATUS": "EXPIRED",
+      "KYC_RISK_RATING": "LOW",
+      "AMOUNT_USD": 4897.28,
+      "SANCTIONS_HIT": false,
+      "PEP_ASSOCIATED": true,
+      "UBO_PEP_COUNT": 1,
+      "UBO_SANCTIONS_MATCH_COUNT": 0,
+      "FATF_STATUS": "GREY_LIST",
+      "COUNTRY_RISK_SCORE": 7.0,
+      "PATTERN_RISK_SCORE": 85.0,
+      "BASELINE_TRANSACTION_COUNT": 0,
+      "BASELINE_AVG_AMOUNT": 0.0,
+      "RELATIONSHIP_YEARS": 7.345653661875428,
+      "REQUIRES_EDD": true,
+      "ADVERSE_MEDIA_FLAG": false,
+      "SLA_HOURS_LEFT": 0.0,
+      "ALERT_AGE_DAYS": 549.6866087962962
+    },
+    "expected": {
+      "weight_version": "v2.0-draft",
+      "risk_score": 57.1,
+      "risk_tier": "MEDIUM",
+      "evidence_confidence": 1.0,
+      "auto_clear_eligible": false,
+      "assigned_queue": "ESCALATE",
+      "queue_score": 87.13,
+      "reason_codes": [
+        {
+          "code": "RC-PEP-MATCH",
+          "factor": "COUNTERPARTY",
+          "points": 20.0,
+          "description": "Politically Exposed Person (PEP) associated"
+        },
+        {
+          "code": "RC-FATF-JURISDICTION",
+          "factor": "JURISDICTION",
+          "points": 20.0,
+          "description": "High-risk FATF listed jurisdiction"
+        },
+        {
+          "code": "RC-PATTERN-ANOMALY",
+          "factor": "STRUCTURAL",
+          "points": 17.0,
+          "description": "High transaction pattern anomaly detected"
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "LEGAL_NAME": "Fuzion Apps, Inc. LLC",
+      "INCORPORATION_COUNTRY_ID": 19,
+      "KYC_STATUS": "EXPIRED",
+      "KYC_RISK_RATING": "HIGH",
+      "AMOUNT_USD": 1948.23,
+      "SANCTIONS_HIT": true,
+      "PEP_ASSOCIATED": false,
+      "UBO_PEP_COUNT": 0,
+      "UBO_SANCTIONS_MATCH_COUNT": 0,
+      "FATF_STATUS": "MEMBER",
+      "COUNTRY_RISK_SCORE": 66.0,
+      "PATTERN_RISK_SCORE": 97.0,
+      "BASELINE_TRANSACTION_COUNT": 0,
+      "BASELINE_AVG_AMOUNT": 0.0,
+      "RELATIONSHIP_YEARS": 31.416837782340863,
+      "REQUIRES_EDD": true,
+      "ADVERSE_MEDIA_FLAG": false,
+      "SLA_HOURS_LEFT": 0.0,
+      "ALERT_AGE_DAYS": 472.1247685185185
+    },
+    "expected": {
+      "weight_version": "v2.0-draft",
+      "risk_score": 62.64,
+      "risk_tier": "HIGH",
+      "evidence_confidence": 1.0,
+      "auto_clear_eligible": false,
+      "assigned_queue": "ESCALATE",
+      "queue_score": 88.79,
+      "reason_codes": [
+        {
+          "code": "RC-SANCTION-HIT",
+          "factor": "COUNTERPARTY",
+          "points": 30.0,
+          "description": "Sanctions match detected on entity or beneficial owner"
+        },
+        {
+          "code": "RC-PATTERN-ANOMALY",
+          "factor": "STRUCTURAL",
+          "points": 19.4,
+          "description": "High transaction pattern anomaly detected"
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "LEGAL_NAME": "CoreLogic PARTNERSHIP",
+      "INCORPORATION_COUNTRY_ID": 11,
+      "KYC_STATUS": "EXPIRED",
+      "KYC_RISK_RATING": "LOW",
+      "AMOUNT_USD": 120791.63,
+      "SANCTIONS_HIT": true,
+      "PEP_ASSOCIATED": false,
+      "UBO_PEP_COUNT": 0,
+      "UBO_SANCTIONS_MATCH_COUNT": 0,
+      "FATF_STATUS": "GREY_LIST",
+      "COUNTRY_RISK_SCORE": 11.0,
+      "PATTERN_RISK_SCORE": 2.0,
+      "BASELINE_TRANSACTION_COUNT": 0,
+      "BASELINE_AVG_AMOUNT": 0.0,
+      "RELATIONSHIP_YEARS": 12.974674880219029,
+      "REQUIRES_EDD": true,
+      "ADVERSE_MEDIA_FLAG": false,
+      "SLA_HOURS_LEFT": 0.0,
+      "ALERT_AGE_DAYS": 920.3728935185185
+    },
+    "expected": {
+      "weight_version": "v2.0-draft",
+      "risk_score": 52.82,
+      "risk_tier": "MEDIUM",
+      "evidence_confidence": 1.0,
+      "auto_clear_eligible": false,
+      "assigned_queue": "ESCALATE",
+      "queue_score": 85.85,
+      "reason_codes": [
+        {
+          "code": "RC-SANCTION-HIT",
+          "factor": "COUNTERPARTY",
+          "points": 30.0,
+          "description": "Sanctions match detected on entity or beneficial owner"
+        },
+        {
+          "code": "RC-FATF-JURISDICTION",
+          "factor": "JURISDICTION",
+          "points": 20.0,
+          "description": "High-risk FATF listed jurisdiction"
+        },
+        {
+          "code": "RC-HIGH-VALUE",
+          "factor": "EXPOSURE",
+          "points": 2.4158326000000003,
+          "description": "High-value transaction exceeding threshold"
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "LEGAL_NAME": "Relationship Science SOLE_PROP",
+      "INCORPORATION_COUNTRY_ID": 15,
+      "KYC_STATUS": "EXPIRED",
+      "KYC_RISK_RATING": "HIGH",
+      "AMOUNT_USD": 137967.56,
+      "SANCTIONS_HIT": true,
+      "PEP_ASSOCIATED": false,
+      "UBO_PEP_COUNT": 0,
+      "UBO_SANCTIONS_MATCH_COUNT": 0,
+      "FATF_STATUS": "BLACK_LIST",
+      "COUNTRY_RISK_SCORE": 61.0,
+      "PATTERN_RISK_SCORE": 4.0,
+      "BASELINE_TRANSACTION_COUNT": 0,
+      "BASELINE_AVG_AMOUNT": 0.0,
+      "RELATIONSHIP_YEARS": 18.527036276522928,
+      "REQUIRES_EDD": true,
+      "ADVERSE_MEDIA_FLAG": false,
+      "SLA_HOURS_LEFT": 0.0,
+      "ALERT_AGE_DAYS": 161.39042824074073
+    },
+    "expected": {
+      "weight_version": "v2.0-draft",
+      "risk_score": 53.56,
+      "risk_tier": "MEDIUM",
+      "evidence_confidence": 1.0,
+      "auto_clear_eligible": false,
+      "assigned_queue": "ESCALATE",
+      "queue_score": 86.07,
+      "reason_codes": [
+        {
+          "code": "RC-SANCTION-HIT",
+          "factor": "COUNTERPARTY",
+          "points": 30.0,
+          "description": "Sanctions match detected on entity or beneficial owner"
+        },
+        {
+          "code": "RC-FATF-JURISDICTION",
+          "factor": "JURISDICTION",
+          "points": 20.0,
+          "description": "High-risk FATF listed jurisdiction"
+        },
+        {
+          "code": "RC-HIGH-VALUE",
+          "factor": "EXPOSURE",
+          "points": 2.7593512,
+          "description": "High-value transaction exceeding threshold"
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "LEGAL_NAME": "Oversight Systems SOLE_PROP",
+      "INCORPORATION_COUNTRY_ID": 13,
+      "KYC_STATUS": "EXPIRED",
+      "KYC_RISK_RATING": "LOW",
+      "AMOUNT_USD": 1228832.85,
+      "SANCTIONS_HIT": false,
+      "PEP_ASSOCIATED": true,
+      "UBO_PEP_COUNT": 1,
+      "UBO_SANCTIONS_MATCH_COUNT": 0,
+      "FATF_STATUS": "NON_COMPLIANT",
+      "COUNTRY_RISK_SCORE": 26.0,
+      "PATTERN_RISK_SCORE": 96.0,
+      "BASELINE_TRANSACTION_COUNT": 0,
+      "BASELINE_AVG_AMOUNT": 0.0,
+      "RELATIONSHIP_YEARS": 8.24914442162902,
+      "REQUIRES_EDD": true,
+      "ADVERSE_MEDIA_FLAG": false,
+      "SLA_HOURS_LEFT": 0.0,
+      "ALERT_AGE_DAYS": 570.394386574074
+    },
+    "expected": {
+      "weight_version": "v2.0-draft",
+      "risk_score": 54.4,
+      "risk_tier": "MEDIUM",
+      "evidence_confidence": 1.0,
+      "auto_clear_eligible": false,
+      "assigned_queue": "ESCALATE",
+      "queue_score": 86.32,
+      "reason_codes": [
+        {
+          "code": "RC-PEP-MATCH",
+          "factor": "COUNTERPARTY",
+          "points": 20.0,
+          "description": "Politically Exposed Person (PEP) associated"
+        },
+        {
+          "code": "RC-PATTERN-ANOMALY",
+          "factor": "STRUCTURAL",
+          "points": 19.2,
+          "description": "High transaction pattern anomaly detected"
+        },
+        {
+          "code": "RC-HIGH-VALUE",
+          "factor": "EXPOSURE",
+          "points": 10.0,
+          "description": "High-value transaction exceeding threshold"
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "LEGAL_NAME": "iMedicare SOLE_PROP",
+      "INCORPORATION_COUNTRY_ID": 19,
+      "KYC_STATUS": "EXPIRED",
+      "KYC_RISK_RATING": "MEDIUM",
+      "AMOUNT_USD": 9749.42,
+      "SANCTIONS_HIT": false,
+      "PEP_ASSOCIATED": true,
+      "UBO_PEP_COUNT": 2,
+      "UBO_SANCTIONS_MATCH_COUNT": 1,
+      "FATF_STATUS": "MEMBER",
+      "COUNTRY_RISK_SCORE": 42.0,
+      "PATTERN_RISK_SCORE": 97.0,
+      "BASELINE_TRANSACTION_COUNT": 0,
+      "BASELINE_AVG_AMOUNT": 0.0,
+      "RELATIONSHIP_YEARS": 3.154004106776181,
+      "REQUIRES_EDD": true,
+      "ADVERSE_MEDIA_FLAG": false,
+      "SLA_HOURS_LEFT": 0.0,
+      "ALERT_AGE_DAYS": 794.4738310185185
+    },
+    "expected": {
+      "weight_version": "v2.0-draft",
+      "risk_score": 57.99,
+      "risk_tier": "MEDIUM",
+      "evidence_confidence": 1.0,
+      "auto_clear_eligible": false,
+      "assigned_queue": "ESCALATE",
+      "queue_score": 87.4,
+      "reason_codes": [
+        {
+          "code": "RC-SANCTION-HIT",
+          "factor": "COUNTERPARTY",
+          "points": 30.0,
+          "description": "Sanctions match detected on entity or beneficial owner"
+        },
+        {
+          "code": "RC-PATTERN-ANOMALY",
+          "factor": "STRUCTURAL",
+          "points": 19.4,
+          "description": "High transaction pattern anomaly detected"
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "LEGAL_NAME": "Tendril CORPORATION",
+      "INCORPORATION_COUNTRY_ID": 15,
+      "KYC_STATUS": "PENDING",
+      "KYC_RISK_RATING": "LOW",
+      "AMOUNT_USD": 1120.0,
+      "SANCTIONS_HIT": false,
+      "PEP_ASSOCIATED": false,
+      "UBO_PEP_COUNT": 0,
+      "UBO_SANCTIONS_MATCH_COUNT": 1,
+      "FATF_STATUS": "BLACK_LIST",
+      "COUNTRY_RISK_SCORE": 23.0,
+      "PATTERN_RISK_SCORE": 16.0,
+      "BASELINE_TRANSACTION_COUNT": 0,
+      "BASELINE_AVG_AMOUNT": 0.0,
+      "RELATIONSHIP_YEARS": 3.468856947296372,
+      "REQUIRES_EDD": false,
+      "ADVERSE_MEDIA_FLAG": false,
+      "SLA_HOURS_LEFT": 0.0,
+      "ALERT_AGE_DAYS": 219.13878472222223
+    },
+    "expected": {
+      "weight_version": "v2.0-draft",
+      "risk_score": 53.22,
+      "risk_tier": "MEDIUM",
+      "evidence_confidence": 1.0,
+      "auto_clear_eligible": false,
+      "assigned_queue": "STANDARD",
+      "queue_score": 85.97,
+      "reason_codes": [
+        {
+          "code": "RC-SANCTION-HIT",
+          "factor": "COUNTERPARTY",
+          "points": 30.0,
+          "description": "Sanctions match detected on entity or beneficial owner"
+        },
+        {
+          "code": "RC-FATF-JURISDICTION",
+          "factor": "JURISDICTION",
+          "points": 20.0,
+          "description": "High-risk FATF listed jurisdiction"
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "LEGAL_NAME": "DataWeave CORPORATION",
+      "INCORPORATION_COUNTRY_ID": 8,
+      "KYC_STATUS": "VERIFIED",
+      "KYC_RISK_RATING": "LOW",
+      "AMOUNT_USD": 268091.97,
+      "SANCTIONS_HIT": true,
+      "PEP_ASSOCIATED": false,
+      "UBO_PEP_COUNT": 0,
+      "UBO_SANCTIONS_MATCH_COUNT": 0,
+      "FATF_STATUS": "MEMBER",
+      "COUNTRY_RISK_SCORE": 11.0,
+      "PATTERN_RISK_SCORE": 99.0,
+      "BASELINE_TRANSACTION_COUNT": 0,
+      "BASELINE_AVG_AMOUNT": 0.0,
+      "RELATIONSHIP_YEARS": 0.8213552361396304,
+      "REQUIRES_EDD": true,
+      "ADVERSE_MEDIA_FLAG": false,
+      "SLA_HOURS_LEFT": 0.0,
+      "ALERT_AGE_DAYS": 109.77791666666667
+    },
+    "expected": {
+      "weight_version": "v2.0-draft",
+      "risk_score": 57.36,
+      "risk_tier": "MEDIUM",
+      "evidence_confidence": 1.0,
+      "auto_clear_eligible": false,
+      "assigned_queue": "ESCALATE",
+      "queue_score": 87.21,
+      "reason_codes": [
+        {
+          "code": "RC-SANCTION-HIT",
+          "factor": "COUNTERPARTY",
+          "points": 30.0,
+          "description": "Sanctions match detected on entity or beneficial owner"
+        },
+        {
+          "code": "RC-PATTERN-ANOMALY",
+          "factor": "STRUCTURAL",
+          "points": 19.8,
+          "description": "High transaction pattern anomaly detected"
+        },
+        {
+          "code": "RC-HIGH-VALUE",
+          "factor": "EXPOSURE",
+          "points": 5.361839399999999,
+          "description": "High-value transaction exceeding threshold"
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "LEGAL_NAME": "GoodGuide LLC",
+      "INCORPORATION_COUNTRY_ID": 21,
+      "KYC_STATUS": "EXPIRED",
+      "KYC_RISK_RATING": "MEDIUM",
+      "AMOUNT_USD": 6950.3,
+      "SANCTIONS_HIT": true,
+      "PEP_ASSOCIATED": false,
+      "UBO_PEP_COUNT": 0,
+      "UBO_SANCTIONS_MATCH_COUNT": 1,
+      "FATF_STATUS": "MEMBER",
+      "COUNTRY_RISK_SCORE": 43.0,
+      "PATTERN_RISK_SCORE": 85.0,
+      "BASELINE_TRANSACTION_COUNT": 0,
+      "BASELINE_AVG_AMOUNT": 0.0,
+      "RELATIONSHIP_YEARS": 5.352498288843258,
+      "REQUIRES_EDD": true,
+      "ADVERSE_MEDIA_FLAG": false,
+      "SLA_HOURS_LEFT": 0.0,
+      "ALERT_AGE_DAYS": 300.167662037037
+    },
+    "expected": {
+      "weight_version": "v2.0-draft",
+      "risk_score": 55.74,
+      "risk_tier": "MEDIUM",
+      "evidence_confidence": 1.0,
+      "auto_clear_eligible": false,
+      "assigned_queue": "ESCALATE",
+      "queue_score": 86.72,
+      "reason_codes": [
+        {
+          "code": "RC-SANCTION-HIT",
+          "factor": "COUNTERPARTY",
+          "points": 30.0,
+          "description": "Sanctions match detected on entity or beneficial owner"
+        },
+        {
+          "code": "RC-PATTERN-ANOMALY",
+          "factor": "STRUCTURAL",
+          "points": 17.0,
+          "description": "High transaction pattern anomaly detected"
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "LEGAL_NAME": "Vitals LLC",
+      "INCORPORATION_COUNTRY_ID": 19,
+      "KYC_STATUS": "PENDING",
+      "KYC_RISK_RATING": "HIGH",
+      "AMOUNT_USD": 10407.97,
+      "SANCTIONS_HIT": false,
+      "PEP_ASSOCIATED": true,
+      "UBO_PEP_COUNT": 1,
+      "UBO_SANCTIONS_MATCH_COUNT": 0,
+      "FATF_STATUS": "MEMBER",
+      "COUNTRY_RISK_SCORE": 82.0,
+      "PATTERN_RISK_SCORE": 82.0,
+      "BASELINE_TRANSACTION_COUNT": 0,
+      "BASELINE_AVG_AMOUNT": 0.0,
+      "RELATIONSHIP_YEARS": 11.991786447638603,
+      "REQUIRES_EDD": true,
+      "ADVERSE_MEDIA_FLAG": false,
+      "SLA_HOURS_LEFT": 0.0,
+      "ALERT_AGE_DAYS": 373.1172337962963
+    },
+    "expected": {
+      "weight_version": "v2.0-draft",
+      "risk_score": 53.01,
+      "risk_tier": "MEDIUM",
+      "evidence_confidence": 1.0,
+      "auto_clear_eligible": false,
+      "assigned_queue": "ESCALATE",
+      "queue_score": 85.9,
+      "reason_codes": [
+        {
+          "code": "RC-PEP-MATCH",
+          "factor": "COUNTERPARTY",
+          "points": 20.0,
+          "description": "Politically Exposed Person (PEP) associated"
+        },
+        {
+          "code": "RC-PATTERN-ANOMALY",
+          "factor": "STRUCTURAL",
+          "points": 16.4,
+          "description": "High transaction pattern anomaly detected"
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "LEGAL_NAME": "Ontodia, Inc CORPORATION",
+      "INCORPORATION_COUNTRY_ID": 14,
+      "KYC_STATUS": "VERIFIED",
+      "KYC_RISK_RATING": "LOW",
+      "AMOUNT_USD": 223.71,
+      "SANCTIONS_HIT": false,
+      "PEP_ASSOCIATED": false,
+      "UBO_PEP_COUNT": 0,
+      "UBO_SANCTIONS_MATCH_COUNT": 0,
+      "FATF_STATUS": "BLACK_LIST",
+      "COUNTRY_RISK_SCORE": 27.0,
+      "PATTERN_RISK_SCORE": 9.0,
+      "BASELINE_TRANSACTION_COUNT": 0,
+      "BASELINE_AVG_AMOUNT": 0.0,
+      "RELATIONSHIP_YEARS": 9.1088295687885,
+      "REQUIRES_EDD": false,
+      "ADVERSE_MEDIA_FLAG": false,
+      "SLA_HOURS_LEFT": 0.0,
+      "ALERT_AGE_DAYS": 627.3192939814815
+    },
+    "expected": {
+      "weight_version": "v2.0-draft",
+      "risk_score": 21.8,
+      "risk_tier": "LOW",
+      "evidence_confidence": 1.0,
+      "auto_clear_eligible": true,
+      "assigned_queue": "AUTO_CLEAR",
+      "queue_score": 76.54,
+      "reason_codes": [
+        {
+          "code": "RC-FATF-JURISDICTION",
+          "factor": "JURISDICTION",
+          "points": 20.0,
+          "description": "High-risk FATF listed jurisdiction"
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "LEGAL_NAME": "IPHIX LLC",
+      "INCORPORATION_COUNTRY_ID": 4,
+      "KYC_STATUS": "PENDING",
+      "KYC_RISK_RATING": "HIGH",
+      "AMOUNT_USD": 123422.61,
+      "SANCTIONS_HIT": true,
+      "PEP_ASSOCIATED": false,
+      "UBO_PEP_COUNT": 0,
+      "UBO_SANCTIONS_MATCH_COUNT": 0,
+      "FATF_STATUS": "MEMBER",
+      "COUNTRY_RISK_SCORE": 83.0,
+      "PATTERN_RISK_SCORE": 19.0,
+      "BASELINE_TRANSACTION_COUNT": 0,
+      "BASELINE_AVG_AMOUNT": 0.0,
+      "RELATIONSHIP_YEARS": 10.680355920602327,
+      "REQUIRES_EDD": true,
+      "ADVERSE_MEDIA_FLAG": false,
+      "SLA_HOURS_LEFT": 0.0,
+      "ALERT_AGE_DAYS": 152.83299768518518
+    },
+    "expected": {
+      "weight_version": "v2.0-draft",
+      "risk_score": 52.87,
+      "risk_tier": "MEDIUM",
+      "evidence_confidence": 1.0,
+      "auto_clear_eligible": false,
+      "assigned_queue": "ESCALATE",
+      "queue_score": 85.86,
+      "reason_codes": [
+        {
+          "code": "RC-SANCTION-HIT",
+          "factor": "COUNTERPARTY",
+          "points": 30.0,
+          "description": "Sanctions match detected on entity or beneficial owner"
+        },
+        {
+          "code": "RC-HIGH-VALUE",
+          "factor": "EXPOSURE",
+          "points": 2.4684522,
+          "description": "High-value transaction exceeding threshold"
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "LEGAL_NAME": "Connotate FOUNDATION",
+      "INCORPORATION_COUNTRY_ID": 14,
+      "KYC_STATUS": "EXPIRED",
+      "KYC_RISK_RATING": "LOW",
+      "AMOUNT_USD": 1540.41,
+      "SANCTIONS_HIT": false,
+      "PEP_ASSOCIATED": false,
+      "UBO_PEP_COUNT": 0,
+      "UBO_SANCTIONS_MATCH_COUNT": 1,
+      "FATF_STATUS": "BLACK_LIST",
+      "COUNTRY_RISK_SCORE": 16.0,
+      "PATTERN_RISK_SCORE": 7.0,
+      "BASELINE_TRANSACTION_COUNT": 0,
+      "BASELINE_AVG_AMOUNT": 0.0,
+      "RELATIONSHIP_YEARS": 18.921286789869953,
+      "REQUIRES_EDD": false,
+      "ADVERSE_MEDIA_FLAG": false,
+      "SLA_HOURS_LEFT": 0.0,
+      "ALERT_AGE_DAYS": 540.5782638888888
+    },
+    "expected": {
+      "weight_version": "v2.0-draft",
+      "risk_score": 51.43,
+      "risk_tier": "MEDIUM",
+      "evidence_confidence": 1.0,
+      "auto_clear_eligible": false,
+      "assigned_queue": "STANDARD",
+      "queue_score": 85.43,
+      "reason_codes": [
+        {
+          "code": "RC-SANCTION-HIT",
+          "factor": "COUNTERPARTY",
+          "points": 30.0,
+          "description": "Sanctions match detected on entity or beneficial owner"
+        },
+        {
+          "code": "RC-FATF-JURISDICTION",
+          "factor": "JURISDICTION",
+          "points": 20.0,
+          "description": "High-risk FATF listed jurisdiction"
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "LEGAL_NAME": "Onvia PARTNERSHIP",
+      "INCORPORATION_COUNTRY_ID": 14,
+      "KYC_STATUS": "VERIFIED",
+      "KYC_RISK_RATING": "LOW",
+      "AMOUNT_USD": 468526.56,
+      "SANCTIONS_HIT": false,
+      "PEP_ASSOCIATED": false,
+      "UBO_PEP_COUNT": 0,
+      "UBO_SANCTIONS_MATCH_COUNT": 1,
+      "FATF_STATUS": "BLACK_LIST",
+      "COUNTRY_RISK_SCORE": 15.0,
+      "PATTERN_RISK_SCORE": 83.0,
+      "BASELINE_TRANSACTION_COUNT": 0,
+      "BASELINE_AVG_AMOUNT": 0.0,
+      "RELATIONSHIP_YEARS": 2.308008213552361,
+      "REQUIRES_EDD": false,
+      "ADVERSE_MEDIA_FLAG": false,
+      "SLA_HOURS_LEFT": 48.0,
+      "ALERT_AGE_DAYS": 876.0222222222222
+    },
+    "expected": {
+      "weight_version": "v2.0-draft",
+      "risk_score": 75.97,
+      "risk_tier": "HIGH",
+      "evidence_confidence": 1.0,
+      "auto_clear_eligible": false,
+      "assigned_queue": "ESCALATE",
+      "queue_score": 57.79,
+      "reason_codes": [
+        {
+          "code": "RC-SANCTION-HIT",
+          "factor": "COUNTERPARTY",
+          "points": 30.0,
+          "description": "Sanctions match detected on entity or beneficial owner"
+        },
+        {
+          "code": "RC-FATF-JURISDICTION",
+          "factor": "JURISDICTION",
+          "points": 20.0,
+          "description": "High-risk FATF listed jurisdiction"
+        },
+        {
+          "code": "RC-PATTERN-ANOMALY",
+          "factor": "STRUCTURAL",
+          "points": 16.599999999999998,
+          "description": "High transaction pattern anomaly detected"
+        },
+        {
+          "code": "RC-HIGH-VALUE",
+          "factor": "EXPOSURE",
+          "points": 9.3705312,
+          "description": "High-value transaction exceeding threshold"
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "LEGAL_NAME": "Kaiser Permanante FOUNDATION",
+      "INCORPORATION_COUNTRY_ID": 15,
+      "KYC_STATUS": "EXPIRED",
+      "KYC_RISK_RATING": "LOW",
+      "AMOUNT_USD": 22353.0,
+      "SANCTIONS_HIT": true,
+      "PEP_ASSOCIATED": false,
+      "UBO_PEP_COUNT": 0,
+      "UBO_SANCTIONS_MATCH_COUNT": 0,
+      "FATF_STATUS": "BLACK_LIST",
+      "COUNTRY_RISK_SCORE": 6.0,
+      "PATTERN_RISK_SCORE": 12.0,
+      "BASELINE_TRANSACTION_COUNT": 0,
+      "BASELINE_AVG_AMOUNT": 0.0,
+      "RELATIONSHIP_YEARS": 2.937713894592745,
+      "REQUIRES_EDD": true,
+      "ADVERSE_MEDIA_FLAG": false,
+      "SLA_HOURS_LEFT": 0.0,
+      "ALERT_AGE_DAYS": 305.0274537037037
+    },
+    "expected": {
+      "weight_version": "v2.0-draft",
+      "risk_score": 52.85,
+      "risk_tier": "MEDIUM",
+      "evidence_confidence": 1.0,
+      "auto_clear_eligible": false,
+      "assigned_queue": "ESCALATE",
+      "queue_score": 85.86,
+      "reason_codes": [
+        {
+          "code": "RC-SANCTION-HIT",
+          "factor": "COUNTERPARTY",
+          "points": 30.0,
+          "description": "Sanctions match detected on entity or beneficial owner"
+        },
+        {
+          "code": "RC-FATF-JURISDICTION",
+          "factor": "JURISDICTION",
+          "points": 20.0,
+          "description": "High-risk FATF listed jurisdiction"
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "LEGAL_NAME": "TuvaLabs CORPORATION",
+      "INCORPORATION_COUNTRY_ID": 23,
+      "KYC_STATUS": "EXPIRED",
+      "KYC_RISK_RATING": "LOW",
+      "AMOUNT_USD": 4696.25,
+      "SANCTIONS_HIT": false,
+      "PEP_ASSOCIATED": true,
+      "UBO_PEP_COUNT": 1,
+      "UBO_SANCTIONS_MATCH_COUNT": 0,
+      "FATF_STATUS": "MEMBER",
+      "COUNTRY_RISK_SCORE": 35.0,
+      "PATTERN_RISK_SCORE": 14.0,
+      "BASELINE_TRANSACTION_COUNT": 0,
+      "BASELINE_AVG_AMOUNT": 0.0,
+      "RELATIONSHIP_YEARS": 22.8911704312115,
+      "REQUIRES_EDD": true,
+      "ADVERSE_MEDIA_FLAG": false,
+      "SLA_HOURS_LEFT": 0.0,
+      "ALERT_AGE_DAYS": 372.5005208333333
+    },
+    "expected": {
+      "weight_version": "v2.0-draft",
+      "risk_score": 29.89,
+      "risk_tier": "LOW",
+      "evidence_confidence": 1.0,
+      "auto_clear_eligible": false,
+      "assigned_queue": "ESCALATE",
+      "queue_score": 78.97,
+      "reason_codes": [
+        {
+          "code": "RC-PEP-MATCH",
+          "factor": "COUNTERPARTY",
+          "points": 20.0,
+          "description": "Politically Exposed Person (PEP) associated"
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "LEGAL_NAME": "Ranku LLC",
+      "INCORPORATION_COUNTRY_ID": 20,
+      "KYC_STATUS": "EXPIRED",
+      "KYC_RISK_RATING": "LOW",
+      "AMOUNT_USD": 26.86,
+      "SANCTIONS_HIT": true,
+      "PEP_ASSOCIATED": false,
+      "UBO_PEP_COUNT": 0,
+      "UBO_SANCTIONS_MATCH_COUNT": 0,
+      "FATF_STATUS": "MEMBER",
+      "COUNTRY_RISK_SCORE": 28.0,
+      "PATTERN_RISK_SCORE": 82.0,
+      "BASELINE_TRANSACTION_COUNT": 0,
+      "BASELINE_AVG_AMOUNT": 0.0,
+      "RELATIONSHIP_YEARS": 9.620807665982204,
+      "REQUIRES_EDD": true,
+      "ADVERSE_MEDIA_FLAG": false,
+      "SLA_HOURS_LEFT": 0.0,
+      "ALERT_AGE_DAYS": 70.86377314814816
+    },
+    "expected": {
+      "weight_version": "v2.0-draft",
+      "risk_score": 52.0,
+      "risk_tier": "MEDIUM",
+      "evidence_confidence": 1.0,
+      "auto_clear_eligible": false,
+      "assigned_queue": "ESCALATE",
+      "queue_score": 85.6,
+      "reason_codes": [
+        {
+          "code": "RC-SANCTION-HIT",
+          "factor": "COUNTERPARTY",
+          "points": 30.0,
+          "description": "Sanctions match detected on entity or beneficial owner"
+        },
+        {
+          "code": "RC-PATTERN-ANOMALY",
+          "factor": "STRUCTURAL",
+          "points": 16.4,
+          "description": "High transaction pattern anomaly detected"
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "LEGAL_NAME": "Ceiba Solutions LLC",
+      "INCORPORATION_COUNTRY_ID": 18,
+      "KYC_STATUS": "EXPIRED",
+      "KYC_RISK_RATING": "LOW",
+      "AMOUNT_USD": 78.54,
+      "SANCTIONS_HIT": true,
+      "PEP_ASSOCIATED": false,
+      "UBO_PEP_COUNT": 0,
+      "UBO_SANCTIONS_MATCH_COUNT": 0,
+      "FATF_STATUS": "MEMBER",
+      "COUNTRY_RISK_SCORE": 8.0,
+      "PATTERN_RISK_SCORE": 99.0,
+      "BASELINE_TRANSACTION_COUNT": 1,
+      "BASELINE_AVG_AMOUNT": 4077.49,
+      "RELATIONSHIP_YEARS": 20.438056125941138,
+      "REQUIRES_EDD": true,
+      "ADVERSE_MEDIA_FLAG": false,
+      "SLA_HOURS_LEFT": 0.0,
+      "ALERT_AGE_DAYS": 536.959212962963
+    },
+    "expected": {
+      "weight_version": "v2.0-draft",
+      "risk_score": 51.4,
+      "risk_tier": "MEDIUM",
+      "evidence_confidence": 1.0,
+      "auto_clear_eligible": false,
+      "assigned_queue": "ESCALATE",
+      "queue_score": 85.42,
+      "reason_codes": [
+        {
+          "code": "RC-SANCTION-HIT",
+          "factor": "COUNTERPARTY",
+          "points": 30.0,
+          "description": "Sanctions match detected on entity or beneficial owner"
+        },
+        {
+          "code": "RC-PATTERN-ANOMALY",
+          "factor": "STRUCTURAL",
+          "points": 19.8,
+          "description": "High transaction pattern anomaly detected"
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "LEGAL_NAME": "optiGov PARTNERSHIP",
+      "INCORPORATION_COUNTRY_ID": 15,
+      "KYC_STATUS": "EXPIRED",
+      "KYC_RISK_RATING": "LOW",
+      "AMOUNT_USD": 821378.62,
+      "SANCTIONS_HIT": false,
+      "PEP_ASSOCIATED": true,
+      "UBO_PEP_COUNT": 1,
+      "UBO_SANCTIONS_MATCH_COUNT": 0,
+      "FATF_STATUS": "BLACK_LIST",
+      "COUNTRY_RISK_SCORE": 28.0,
+      "PATTERN_RISK_SCORE": 6.0,
+      "BASELINE_TRANSACTION_COUNT": 0,
+      "BASELINE_AVG_AMOUNT": 0.0,
+      "RELATIONSHIP_YEARS": 30.91854893908282,
+      "REQUIRES_EDD": true,
+      "ADVERSE_MEDIA_FLAG": false,
+      "SLA_HOURS_LEFT": 0.0,
+      "ALERT_AGE_DAYS": 750.6455092592593
+    },
+    "expected": {
+      "weight_version": "v2.0-draft",
+      "risk_score": 51.2,
+      "risk_tier": "MEDIUM",
+      "evidence_confidence": 1.0,
+      "auto_clear_eligible": false,
+      "assigned_queue": "ESCALATE",
+      "queue_score": 85.36,
+      "reason_codes": [
+        {
+          "code": "RC-PEP-MATCH",
+          "factor": "COUNTERPARTY",
+          "points": 20.0,
+          "description": "Politically Exposed Person (PEP) associated"
+        },
+        {
+          "code": "RC-FATF-JURISDICTION",
+          "factor": "JURISDICTION",
+          "points": 20.0,
+          "description": "High-risk FATF listed jurisdiction"
+        },
+        {
+          "code": "RC-HIGH-VALUE",
+          "factor": "EXPOSURE",
+          "points": 10.0,
+          "description": "High-value transaction exceeding threshold"
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "LEGAL_NAME": "USAA Group CORPORATION",
+      "INCORPORATION_COUNTRY_ID": 20,
+      "KYC_STATUS": "EXPIRED",
+      "KYC_RISK_RATING": "LOW",
+      "AMOUNT_USD": 17264.08,
+      "SANCTIONS_HIT": true,
+      "PEP_ASSOCIATED": false,
+      "UBO_PEP_COUNT": 0,
+      "UBO_SANCTIONS_MATCH_COUNT": 0,
+      "FATF_STATUS": "MEMBER",
+      "COUNTRY_RISK_SCORE": 9.0,
+      "PATTERN_RISK_SCORE": 92.0,
+      "BASELINE_TRANSACTION_COUNT": 1,
+      "BASELINE_AVG_AMOUNT": 72378.42,
+      "RELATIONSHIP_YEARS": 5.566050650239562,
+      "REQUIRES_EDD": true,
+      "ADVERSE_MEDIA_FLAG": false,
+      "SLA_HOURS_LEFT": 0.0,
+      "ALERT_AGE_DAYS": 492.1047337962963
+    },
+    "expected": {
+      "weight_version": "v2.0-draft",
+      "risk_score": 50.55,
+      "risk_tier": "MEDIUM",
+      "evidence_confidence": 1.0,
+      "auto_clear_eligible": false,
+      "assigned_queue": "ESCALATE",
+      "queue_score": 85.16,
+      "reason_codes": [
+        {
+          "code": "RC-SANCTION-HIT",
+          "factor": "COUNTERPARTY",
+          "points": 30.0,
+          "description": "Sanctions match detected on entity or beneficial owner"
+        },
+        {
+          "code": "RC-PATTERN-ANOMALY",
+          "factor": "STRUCTURAL",
+          "points": 18.400000000000002,
+          "description": "High transaction pattern anomaly detected"
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "LEGAL_NAME": "HealthPocket, Inc. LLC",
+      "INCORPORATION_COUNTRY_ID": 2,
+      "KYC_STATUS": "EXPIRED",
+      "KYC_RISK_RATING": "LOW",
+      "AMOUNT_USD": 3002420.74,
+      "SANCTIONS_HIT": false,
+      "PEP_ASSOCIATED": true,
+      "UBO_PEP_COUNT": 1,
+      "UBO_SANCTIONS_MATCH_COUNT": 0,
+      "FATF_STATUS": "MEMBER",
+      "COUNTRY_RISK_SCORE": 6.0,
+      "PATTERN_RISK_SCORE": 87.0,
+      "BASELINE_TRANSACTION_COUNT": 0,
+      "BASELINE_AVG_AMOUNT": 0.0,
+      "RELATIONSHIP_YEARS": 0.5448323066392882,
+      "REQUIRES_EDD": true,
+      "ADVERSE_MEDIA_FLAG": false,
+      "SLA_HOURS_LEFT": 0.0,
+      "ALERT_AGE_DAYS": 582.0532638888889
+    },
+    "expected": {
+      "weight_version": "v2.0-draft",
+      "risk_score": 48.6,
+      "risk_tier": "MEDIUM",
+      "evidence_confidence": 1.0,
+      "auto_clear_eligible": false,
+      "assigned_queue": "ESCALATE",
+      "queue_score": 84.58,
+      "reason_codes": [
+        {
+          "code": "RC-PEP-MATCH",
+          "factor": "COUNTERPARTY",
+          "points": 20.0,
+          "description": "Politically Exposed Person (PEP) associated"
+        },
+        {
+          "code": "RC-PATTERN-ANOMALY",
+          "factor": "STRUCTURAL",
+          "points": 17.4,
+          "description": "High transaction pattern anomaly detected"
+        },
+        {
+          "code": "RC-HIGH-VALUE",
+          "factor": "EXPOSURE",
+          "points": 10.0,
+          "description": "High-value transaction exceeding threshold"
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "LEGAL_NAME": "Uber CORPORATION",
+      "INCORPORATION_COUNTRY_ID": 14,
+      "KYC_STATUS": "VERIFIED",
+      "KYC_RISK_RATING": "LOW",
+      "AMOUNT_USD": 890579.21,
+      "SANCTIONS_HIT": false,
+      "PEP_ASSOCIATED": false,
+      "UBO_PEP_COUNT": 0,
+      "UBO_SANCTIONS_MATCH_COUNT": 0,
+      "FATF_STATUS": "BLACK_LIST",
+      "COUNTRY_RISK_SCORE": 14.0,
+      "PATTERN_RISK_SCORE": 92.0,
+      "BASELINE_TRANSACTION_COUNT": 0,
+      "BASELINE_AVG_AMOUNT": 0.0,
+      "RELATIONSHIP_YEARS": 0.9500342231348392,
+      "REQUIRES_EDD": false,
+      "ADVERSE_MEDIA_FLAG": false,
+      "SLA_HOURS_LEFT": 0.0,
+      "ALERT_AGE_DAYS": 516.0894444444444
+    },
+    "expected": {
+      "weight_version": "v2.0-draft",
+      "risk_score": 48.4,
+      "risk_tier": "MEDIUM",
+      "evidence_confidence": 1.0,
+      "auto_clear_eligible": false,
+      "assigned_queue": "STANDARD",
+      "queue_score": 84.52,
+      "reason_codes": [
+        {
+          "code": "RC-FATF-JURISDICTION",
+          "factor": "JURISDICTION",
+          "points": 20.0,
+          "description": "High-risk FATF listed jurisdiction"
+        },
+        {
+          "code": "RC-PATTERN-ANOMALY",
+          "factor": "STRUCTURAL",
+          "points": 18.400000000000002,
+          "description": "High transaction pattern anomaly detected"
+        },
+        {
+          "code": "RC-HIGH-VALUE",
+          "factor": "EXPOSURE",
+          "points": 10.0,
+          "description": "High-value transaction exceeding threshold"
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "LEGAL_NAME": "Moody's PARTNERSHIP",
+      "INCORPORATION_COUNTRY_ID": 14,
+      "KYC_STATUS": "EXPIRED",
+      "KYC_RISK_RATING": "LOW",
+      "AMOUNT_USD": 4537340.13,
+      "SANCTIONS_HIT": false,
+      "PEP_ASSOCIATED": false,
+      "UBO_PEP_COUNT": 0,
+      "UBO_SANCTIONS_MATCH_COUNT": 0,
+      "FATF_STATUS": "BLACK_LIST",
+      "COUNTRY_RISK_SCORE": 33.0,
+      "PATTERN_RISK_SCORE": 92.0,
+      "BASELINE_TRANSACTION_COUNT": 0,
+      "BASELINE_AVG_AMOUNT": 0.0,
+      "RELATIONSHIP_YEARS": 18.261464750171115,
+      "REQUIRES_EDD": false,
+      "ADVERSE_MEDIA_FLAG": false,
+      "SLA_HOURS_LEFT": 0.0,
+      "ALERT_AGE_DAYS": 648.4377893518518
+    },
+    "expected": {
+      "weight_version": "v2.0-draft",
+      "risk_score": 48.4,
+      "risk_tier": "MEDIUM",
+      "evidence_confidence": 1.0,
+      "auto_clear_eligible": false,
+      "assigned_queue": "STANDARD",
+      "queue_score": 84.52,
+      "reason_codes": [
+        {
+          "code": "RC-FATF-JURISDICTION",
+          "factor": "JURISDICTION",
+          "points": 20.0,
+          "description": "High-risk FATF listed jurisdiction"
+        },
+        {
+          "code": "RC-PATTERN-ANOMALY",
+          "factor": "STRUCTURAL",
+          "points": 18.400000000000002,
+          "description": "High transaction pattern anomaly detected"
+        },
+        {
+          "code": "RC-HIGH-VALUE",
+          "factor": "EXPOSURE",
+          "points": 10.0,
+          "description": "High-value transaction exceeding threshold"
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "LEGAL_NAME": "National Van Lines LLC",
+      "INCORPORATION_COUNTRY_ID": 2,
+      "KYC_STATUS": "REJECTED",
+      "KYC_RISK_RATING": "MEDIUM",
+      "AMOUNT_USD": 289834.96,
+      "SANCTIONS_HIT": true,
+      "PEP_ASSOCIATED": false,
+      "UBO_PEP_COUNT": 0,
+      "UBO_SANCTIONS_MATCH_COUNT": 0,
+      "FATF_STATUS": "MEMBER",
+      "COUNTRY_RISK_SCORE": 51.0,
+      "PATTERN_RISK_SCORE": 11.0,
+      "BASELINE_TRANSACTION_COUNT": 0,
+      "BASELINE_AVG_AMOUNT": 0.0,
+      "RELATIONSHIP_YEARS": 23.67145790554415,
+      "REQUIRES_EDD": true,
+      "ADVERSE_MEDIA_FLAG": false,
+      "SLA_HOURS_LEFT": 0.0,
+      "ALERT_AGE_DAYS": 660.8368634259259
+    },
+    "expected": {
+      "weight_version": "v2.0-draft",
+      "risk_score": 48.2,
+      "risk_tier": "MEDIUM",
+      "evidence_confidence": 1.0,
+      "auto_clear_eligible": false,
+      "assigned_queue": "ESCALATE",
+      "queue_score": 84.46,
+      "reason_codes": [
+        {
+          "code": "RC-SANCTION-HIT",
+          "factor": "COUNTERPARTY",
+          "points": 30.0,
+          "description": "Sanctions match detected on entity or beneficial owner"
+        },
+        {
+          "code": "RC-HIGH-VALUE",
+          "factor": "EXPOSURE",
+          "points": 5.796699200000001,
+          "description": "High-value transaction exceeding threshold"
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "LEGAL_NAME": "Oliver Wyman CORPORATION",
+      "INCORPORATION_COUNTRY_ID": 14,
+      "KYC_STATUS": "EXPIRED",
+      "KYC_RISK_RATING": "HIGH",
+      "AMOUNT_USD": 145803.49,
+      "SANCTIONS_HIT": false,
+      "PEP_ASSOCIATED": false,
+      "UBO_PEP_COUNT": 1,
+      "UBO_SANCTIONS_MATCH_COUNT": 0,
+      "FATF_STATUS": "BLACK_LIST",
+      "COUNTRY_RISK_SCORE": 88.0,
+      "PATTERN_RISK_SCORE": 15.0,
+      "BASELINE_TRANSACTION_COUNT": 0,
+      "BASELINE_AVG_AMOUNT": 0.0,
+      "RELATIONSHIP_YEARS": 24.958247775496236,
+      "REQUIRES_EDD": false,
+      "ADVERSE_MEDIA_FLAG": false,
+      "SLA_HOURS_LEFT": 0.0,
+      "ALERT_AGE_DAYS": 355.72113425925926
+    },
+    "expected": {
+      "weight_version": "v2.0-draft",
+      "risk_score": 45.92,
+      "risk_tier": "MEDIUM",
+      "evidence_confidence": 1.0,
+      "auto_clear_eligible": false,
+      "assigned_queue": "STANDARD",
+      "queue_score": 83.78,
+      "reason_codes": [
+        {
+          "code": "RC-PEP-MATCH",
+          "factor": "COUNTERPARTY",
+          "points": 20.0,
+          "description": "Politically Exposed Person (PEP) associated"
+        },
+        {
+          "code": "RC-FATF-JURISDICTION",
+          "factor": "JURISDICTION",
+          "points": 20.0,
+          "description": "High-risk FATF listed jurisdiction"
+        },
+        {
+          "code": "RC-HIGH-VALUE",
+          "factor": "EXPOSURE",
+          "points": 2.9160698,
+          "description": "High-value transaction exceeding threshold"
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "LEGAL_NAME": "SAP LLC",
+      "INCORPORATION_COUNTRY_ID": 15,
+      "KYC_STATUS": "EXPIRED",
+      "KYC_RISK_RATING": "LOW",
+      "AMOUNT_USD": 193508.49,
+      "SANCTIONS_HIT": false,
+      "PEP_ASSOCIATED": false,
+      "UBO_PEP_COUNT": 1,
+      "UBO_SANCTIONS_MATCH_COUNT": 0,
+      "FATF_STATUS": "BLACK_LIST",
+      "COUNTRY_RISK_SCORE": 32.0,
+      "PATTERN_RISK_SCORE": 10.0,
+      "BASELINE_TRANSACTION_COUNT": 0,
+      "BASELINE_AVG_AMOUNT": 0.0,
+      "RELATIONSHIP_YEARS": 2.631074606433949,
+      "REQUIRES_EDD": false,
+      "ADVERSE_MEDIA_FLAG": false,
+      "SLA_HOURS_LEFT": 0.0,
+      "ALERT_AGE_DAYS": 650.9601041666666
+    },
+    "expected": {
+      "weight_version": "v2.0-draft",
+      "risk_score": 45.87,
+      "risk_tier": "MEDIUM",
+      "evidence_confidence": 1.0,
+      "auto_clear_eligible": false,
+      "assigned_queue": "STANDARD",
+      "queue_score": 83.76,
+      "reason_codes": [
+        {
+          "code": "RC-PEP-MATCH",
+          "factor": "COUNTERPARTY",
+          "points": 20.0,
+          "description": "Politically Exposed Person (PEP) associated"
+        },
+        {
+          "code": "RC-FATF-JURISDICTION",
+          "factor": "JURISDICTION",
+          "points": 20.0,
+          "description": "High-risk FATF listed jurisdiction"
+        },
+        {
+          "code": "RC-HIGH-VALUE",
+          "factor": "EXPOSURE",
+          "points": 3.8701697999999993,
+          "description": "High-value transaction exceeding threshold"
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "LEGAL_NAME": "Xcential LLC",
+      "INCORPORATION_COUNTRY_ID": 18,
+      "KYC_STATUS": "VERIFIED",
+      "KYC_RISK_RATING": "MEDIUM",
+      "AMOUNT_USD": 14431.39,
+      "SANCTIONS_HIT": false,
+      "PEP_ASSOCIATED": true,
+      "UBO_PEP_COUNT": 1,
+      "UBO_SANCTIONS_MATCH_COUNT": 0,
+      "FATF_STATUS": "MEMBER",
+      "COUNTRY_RISK_SCORE": 33.0,
+      "PATTERN_RISK_SCORE": 94.0,
+      "BASELINE_TRANSACTION_COUNT": 0,
+      "BASELINE_AVG_AMOUNT": 0.0,
+      "RELATIONSHIP_YEARS": 3.789185489390828,
+      "REQUIRES_EDD": true,
+      "ADVERSE_MEDIA_FLAG": false,
+      "SLA_HOURS_LEFT": 0.0,
+      "ALERT_AGE_DAYS": 584.2614236111111
+    },
+    "expected": {
+      "weight_version": "v2.0-draft",
+      "risk_score": 45.69,
+      "risk_tier": "MEDIUM",
+      "evidence_confidence": 1.0,
+      "auto_clear_eligible": false,
+      "assigned_queue": "ESCALATE",
+      "queue_score": 83.71,
+      "reason_codes": [
+        {
+          "code": "RC-PEP-MATCH",
+          "factor": "COUNTERPARTY",
+          "points": 20.0,
+          "description": "Politically Exposed Person (PEP) associated"
+        },
+        {
+          "code": "RC-PATTERN-ANOMALY",
+          "factor": "STRUCTURAL",
+          "points": 18.799999999999997,
+          "description": "High transaction pattern anomaly detected"
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "LEGAL_NAME": "WebMD LLC",
+      "INCORPORATION_COUNTRY_ID": 1,
+      "KYC_STATUS": "EXPIRED",
+      "KYC_RISK_RATING": "LOW",
+      "AMOUNT_USD": 2579.31,
+      "SANCTIONS_HIT": false,
+      "PEP_ASSOCIATED": true,
+      "UBO_PEP_COUNT": 1,
+      "UBO_SANCTIONS_MATCH_COUNT": 0,
+      "FATF_STATUS": "MEMBER",
+      "COUNTRY_RISK_SCORE": 31.0,
+      "PATTERN_RISK_SCORE": 95.0,
+      "BASELINE_TRANSACTION_COUNT": 0,
+      "BASELINE_AVG_AMOUNT": 0.0,
+      "RELATIONSHIP_YEARS": 4.147843942505133,
+      "REQUIRES_EDD": true,
+      "ADVERSE_MEDIA_FLAG": false,
+      "SLA_HOURS_LEFT": 0.0,
+      "ALERT_AGE_DAYS": 155.0728587962963
+    },
+    "expected": {
+      "weight_version": "v2.0-draft",
+      "risk_score": 45.25,
+      "risk_tier": "MEDIUM",
+      "evidence_confidence": 1.0,
+      "auto_clear_eligible": false,
+      "assigned_queue": "ESCALATE",
+      "queue_score": 83.58,
+      "reason_codes": [
+        {
+          "code": "RC-PEP-MATCH",
+          "factor": "COUNTERPARTY",
+          "points": 20.0,
+          "description": "Politically Exposed Person (PEP) associated"
+        },
+        {
+          "code": "RC-PATTERN-ANOMALY",
+          "factor": "STRUCTURAL",
+          "points": 19.0,
+          "description": "High transaction pattern anomaly detected"
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "LEGAL_NAME": "StreetCred Software, Inc LLC",
+      "INCORPORATION_COUNTRY_ID": 10,
+      "KYC_STATUS": "REJECTED",
+      "KYC_RISK_RATING": "LOW",
+      "AMOUNT_USD": 79340.81,
+      "SANCTIONS_HIT": false,
+      "PEP_ASSOCIATED": true,
+      "UBO_PEP_COUNT": 2,
+      "UBO_SANCTIONS_MATCH_COUNT": 0,
+      "FATF_STATUS": "GREY_LIST",
+      "COUNTRY_RISK_SCORE": 21.0,
+      "PATTERN_RISK_SCORE": 17.0,
+      "BASELINE_TRANSACTION_COUNT": 0,
+      "BASELINE_AVG_AMOUNT": 0.0,
+      "RELATIONSHIP_YEARS": 3.159479808350445,
+      "REQUIRES_EDD": true,
+      "ADVERSE_MEDIA_FLAG": false,
+      "SLA_HOURS_LEFT": 0.0,
+      "ALERT_AGE_DAYS": 111.03758101851852
+    },
+    "expected": {
+      "weight_version": "v2.0-draft",
+      "risk_score": 44.99,
+      "risk_tier": "MEDIUM",
+      "evidence_confidence": 1.0,
+      "auto_clear_eligible": false,
+      "assigned_queue": "ESCALATE",
+      "queue_score": 83.5,
+      "reason_codes": [
+        {
+          "code": "RC-PEP-MATCH",
+          "factor": "COUNTERPARTY",
+          "points": 20.0,
+          "description": "Politically Exposed Person (PEP) associated"
+        },
+        {
+          "code": "RC-FATF-JURISDICTION",
+          "factor": "JURISDICTION",
+          "points": 20.0,
+          "description": "High-risk FATF listed jurisdiction"
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "LEGAL_NAME": "Booz Allen Hamilton LLC",
+      "INCORPORATION_COUNTRY_ID": 15,
+      "KYC_STATUS": "EXPIRED",
+      "KYC_RISK_RATING": "LOW",
+      "AMOUNT_USD": 89129.25,
+      "SANCTIONS_HIT": false,
+      "PEP_ASSOCIATED": false,
+      "UBO_PEP_COUNT": 1,
+      "UBO_SANCTIONS_MATCH_COUNT": 0,
+      "FATF_STATUS": "BLACK_LIST",
+      "COUNTRY_RISK_SCORE": 17.0,
+      "PATTERN_RISK_SCORE": 16.0,
+      "BASELINE_TRANSACTION_COUNT": 0,
+      "BASELINE_AVG_AMOUNT": 0.0,
+      "RELATIONSHIP_YEARS": 12.095824777549623,
+      "REQUIRES_EDD": false,
+      "ADVERSE_MEDIA_FLAG": false,
+      "SLA_HOURS_LEFT": 0.0,
+      "ALERT_AGE_DAYS": 901.9603125
+    },
+    "expected": {
+      "weight_version": "v2.0-draft",
+      "risk_score": 44.98,
+      "risk_tier": "MEDIUM",
+      "evidence_confidence": 1.0,
+      "auto_clear_eligible": false,
+      "assigned_queue": "STANDARD",
+      "queue_score": 83.49,
+      "reason_codes": [
+        {
+          "code": "RC-PEP-MATCH",
+          "factor": "COUNTERPARTY",
+          "points": 20.0,
+          "description": "Politically Exposed Person (PEP) associated"
+        },
+        {
+          "code": "RC-FATF-JURISDICTION",
+          "factor": "JURISDICTION",
+          "points": 20.0,
+          "description": "High-risk FATF listed jurisdiction"
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "LEGAL_NAME": "Urban Airship CORPORATION",
+      "INCORPORATION_COUNTRY_ID": 12,
+      "KYC_STATUS": "REJECTED",
+      "KYC_RISK_RATING": "MEDIUM",
+      "AMOUNT_USD": 46003.07,
+      "SANCTIONS_HIT": false,
+      "PEP_ASSOCIATED": true,
+      "UBO_PEP_COUNT": 1,
+      "UBO_SANCTIONS_MATCH_COUNT": 0,
+      "FATF_STATUS": "GREY_LIST",
+      "COUNTRY_RISK_SCORE": 60.0,
+      "PATTERN_RISK_SCORE": 16.0,
+      "BASELINE_TRANSACTION_COUNT": 0,
+      "BASELINE_AVG_AMOUNT": 0.0,
+      "RELATIONSHIP_YEARS": 9.097878165639973,
+      "REQUIRES_EDD": true,
+      "ADVERSE_MEDIA_FLAG": false,
+      "SLA_HOURS_LEFT": 0.0,
+      "ALERT_AGE_DAYS": 219.0495486111111
+    },
+    "expected": {
+      "weight_version": "v2.0-draft",
+      "risk_score": 44.12,
+      "risk_tier": "MEDIUM",
+      "evidence_confidence": 1.0,
+      "auto_clear_eligible": false,
+      "assigned_queue": "ESCALATE",
+      "queue_score": 83.24,
+      "reason_codes": [
+        {
+          "code": "RC-PEP-MATCH",
+          "factor": "COUNTERPARTY",
+          "points": 20.0,
+          "description": "Politically Exposed Person (PEP) associated"
+        },
+        {
+          "code": "RC-FATF-JURISDICTION",
+          "factor": "JURISDICTION",
+          "points": 20.0,
+          "description": "High-risk FATF listed jurisdiction"
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "LEGAL_NAME": "Dun & Bradstreet PARTNERSHIP",
+      "INCORPORATION_COUNTRY_ID": 15,
+      "KYC_STATUS": "VERIFIED",
+      "KYC_RISK_RATING": "MEDIUM",
+      "AMOUNT_USD": 1000.0,
+      "SANCTIONS_HIT": false,
+      "PEP_ASSOCIATED": false,
+      "UBO_PEP_COUNT": 0,
+      "UBO_SANCTIONS_MATCH_COUNT": 1,
+      "FATF_STATUS": "BLACK_LIST",
+      "COUNTRY_RISK_SCORE": 51.0,
+      "PATTERN_RISK_SCORE": 18.0,
+      "BASELINE_TRANSACTION_COUNT": 0,
+      "BASELINE_AVG_AMOUNT": 0.0,
+      "RELATIONSHIP_YEARS": 1.054072553045859,
+      "REQUIRES_EDD": true,
+      "ADVERSE_MEDIA_FLAG": false,
+      "SLA_HOURS_LEFT": 4.0,
+      "ALERT_AGE_DAYS": 297.2213773148148
+    },
+    "expected": {
+      "weight_version": "v2.0-draft",
+      "risk_score": 53.62,
+      "risk_tier": "MEDIUM",
+      "evidence_confidence": 1.0,
+      "auto_clear_eligible": false,
+      "assigned_queue": "STANDARD",
+      "queue_score": 83.17,
+      "reason_codes": [
+        {
+          "code": "RC-SANCTION-HIT",
+          "factor": "COUNTERPARTY",
+          "points": 30.0,
+          "description": "Sanctions match detected on entity or beneficial owner"
+        },
+        {
+          "code": "RC-FATF-JURISDICTION",
+          "factor": "JURISDICTION",
+          "points": 20.0,
+          "description": "High-risk FATF listed jurisdiction"
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "LEGAL_NAME": "iMedicare CORPORATION",
+      "INCORPORATION_COUNTRY_ID": 3,
+      "KYC_STATUS": "EXPIRED",
+      "KYC_RISK_RATING": "LOW",
+      "AMOUNT_USD": 336024.25,
+      "SANCTIONS_HIT": true,
+      "PEP_ASSOCIATED": false,
+      "UBO_PEP_COUNT": 0,
+      "UBO_SANCTIONS_MATCH_COUNT": 0,
+      "FATF_STATUS": "MEMBER",
+      "COUNTRY_RISK_SCORE": 31.0,
+      "PATTERN_RISK_SCORE": 3.0,
+      "BASELINE_TRANSACTION_COUNT": 0,
+      "BASELINE_AVG_AMOUNT": 0.0,
+      "RELATIONSHIP_YEARS": 23.88227241615332,
+      "REQUIRES_EDD": true,
+      "ADVERSE_MEDIA_FLAG": false,
+      "SLA_HOURS_LEFT": 0.0,
+      "ALERT_AGE_DAYS": 450.6609490740741
+    },
+    "expected": {
+      "weight_version": "v2.0-draft",
+      "risk_score": 43.52,
+      "risk_tier": "MEDIUM",
+      "evidence_confidence": 1.0,
+      "auto_clear_eligible": false,
+      "assigned_queue": "ESCALATE",
+      "queue_score": 83.06,
+      "reason_codes": [
+        {
+          "code": "RC-SANCTION-HIT",
+          "factor": "COUNTERPARTY",
+          "points": 30.0,
+          "description": "Sanctions match detected on entity or beneficial owner"
+        },
+        {
+          "code": "RC-HIGH-VALUE",
+          "factor": "EXPOSURE",
+          "points": 6.720485,
+          "description": "High-value transaction exceeding threshold"
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "LEGAL_NAME": "Qado Energy, Inc. CORPORATION",
+      "INCORPORATION_COUNTRY_ID": 15,
+      "KYC_STATUS": "PENDING",
+      "KYC_RISK_RATING": "LOW",
+      "AMOUNT_USD": 27824.88,
+      "SANCTIONS_HIT": false,
+      "PEP_ASSOCIATED": true,
+      "UBO_PEP_COUNT": 1,
+      "UBO_SANCTIONS_MATCH_COUNT": 1,
+      "FATF_STATUS": "BLACK_LIST",
+      "COUNTRY_RISK_SCORE": 17.0,
+      "PATTERN_RISK_SCORE": 13.0,
+      "BASELINE_TRANSACTION_COUNT": 0,
+      "BASELINE_AVG_AMOUNT": 0.0,
+      "RELATIONSHIP_YEARS": 12.10403832991102,
+      "REQUIRES_EDD": true,
+      "ADVERSE_MEDIA_FLAG": false,
+      "SLA_HOURS_LEFT": 4.0,
+      "ALERT_AGE_DAYS": 720.4293287037037
+    },
+    "expected": {
+      "weight_version": "v2.0-draft",
+      "risk_score": 53.16,
+      "risk_tier": "MEDIUM",
+      "evidence_confidence": 1.0,
+      "auto_clear_eligible": false,
+      "assigned_queue": "ESCALATE",
+      "queue_score": 83.03,
+      "reason_codes": [
+        {
+          "code": "RC-SANCTION-HIT",
+          "factor": "COUNTERPARTY",
+          "points": 30.0,
+          "description": "Sanctions match detected on entity or beneficial owner"
+        },
+        {
+          "code": "RC-FATF-JURISDICTION",
+          "factor": "JURISDICTION",
+          "points": 20.0,
+          "description": "High-risk FATF listed jurisdiction"
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "LEGAL_NAME": "Open Data Nation TRUST",
+      "INCORPORATION_COUNTRY_ID": 19,
+      "KYC_STATUS": "VERIFIED",
+      "KYC_RISK_RATING": "LOW",
+      "AMOUNT_USD": 4300033.4,
+      "SANCTIONS_HIT": true,
+      "PEP_ASSOCIATED": false,
+      "UBO_PEP_COUNT": 0,
+      "UBO_SANCTIONS_MATCH_COUNT": 0,
+      "FATF_STATUS": "MEMBER",
+      "COUNTRY_RISK_SCORE": 6.0,
+      "PATTERN_RISK_SCORE": 10.0,
+      "BASELINE_TRANSACTION_COUNT": 0,
+      "BASELINE_AVG_AMOUNT": 0.0,
+      "RELATIONSHIP_YEARS": 3.479808350444901,
+      "REQUIRES_EDD": true,
+      "ADVERSE_MEDIA_FLAG": false,
+      "SLA_HOURS_LEFT": 0.0,
+      "ALERT_AGE_DAYS": 316.60188657407406
+    },
+    "expected": {
+      "weight_version": "v2.0-draft",
+      "risk_score": 43.2,
+      "risk_tier": "MEDIUM",
+      "evidence_confidence": 1.0,
+      "auto_clear_eligible": false,
+      "assigned_queue": "ESCALATE",
+      "queue_score": 82.96,
+      "reason_codes": [
+        {
+          "code": "RC-SANCTION-HIT",
+          "factor": "COUNTERPARTY",
+          "points": 30.0,
+          "description": "Sanctions match detected on entity or beneficial owner"
+        },
+        {
+          "code": "RC-HIGH-VALUE",
+          "factor": "EXPOSURE",
+          "points": 10.0,
+          "description": "High-value transaction exceeding threshold"
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "LEGAL_NAME": "DataMade CORPORATION",
+      "INCORPORATION_COUNTRY_ID": 3,
+      "KYC_STATUS": "EXPIRED",
+      "KYC_RISK_RATING": "LOW",
+      "AMOUNT_USD": 9078.49,
+      "SANCTIONS_HIT": false,
+      "PEP_ASSOCIATED": true,
+      "UBO_PEP_COUNT": 1,
+      "UBO_SANCTIONS_MATCH_COUNT": 0,
+      "FATF_STATUS": "MEMBER",
+      "COUNTRY_RISK_SCORE": 28.0,
+      "PATTERN_RISK_SCORE": 87.0,
+      "BASELINE_TRANSACTION_COUNT": 1,
+      "BASELINE_AVG_AMOUNT": 7032.41,
+      "RELATIONSHIP_YEARS": 26.001368925393567,
+      "REQUIRES_EDD": true,
+      "ADVERSE_MEDIA_FLAG": false,
+      "SLA_HOURS_LEFT": 0.0,
+      "ALERT_AGE_DAYS": 135.7483564814815
+    },
+    "expected": {
+      "weight_version": "v2.0-draft",
+      "risk_score": 43.18,
+      "risk_tier": "MEDIUM",
+      "evidence_confidence": 1.0,
+      "auto_clear_eligible": false,
+      "assigned_queue": "ESCALATE",
+      "queue_score": 82.95,
+      "reason_codes": [
+        {
+          "code": "RC-PEP-MATCH",
+          "factor": "COUNTERPARTY",
+          "points": 20.0,
+          "description": "Politically Exposed Person (PEP) associated"
+        },
+        {
+          "code": "RC-PATTERN-ANOMALY",
+          "factor": "STRUCTURAL",
+          "points": 17.4,
+          "description": "High transaction pattern anomaly detected"
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "LEGAL_NAME": "Uber CORPORATION",
+      "INCORPORATION_COUNTRY_ID": 3,
+      "KYC_STATUS": "VERIFIED",
+      "KYC_RISK_RATING": "LOW",
+      "AMOUNT_USD": 1270.0,
+      "SANCTIONS_HIT": false,
+      "PEP_ASSOCIATED": true,
+      "UBO_PEP_COUNT": 1,
+      "UBO_SANCTIONS_MATCH_COUNT": 0,
+      "FATF_STATUS": "MEMBER",
+      "COUNTRY_RISK_SCORE": 22.0,
+      "PATTERN_RISK_SCORE": 92.0,
+      "BASELINE_TRANSACTION_COUNT": 0,
+      "BASELINE_AVG_AMOUNT": 0.0,
+      "RELATIONSHIP_YEARS": 1.566050650239562,
+      "REQUIRES_EDD": true,
+      "ADVERSE_MEDIA_FLAG": false,
+      "SLA_HOURS_LEFT": 0.0,
+      "ALERT_AGE_DAYS": 137.69165509259258
+    },
+    "expected": {
+      "weight_version": "v2.0-draft",
+      "risk_score": 42.83,
+      "risk_tier": "MEDIUM",
+      "evidence_confidence": 1.0,
+      "auto_clear_eligible": false,
+      "assigned_queue": "ESCALATE",
+      "queue_score": 82.85,
+      "reason_codes": [
+        {
+          "code": "RC-PEP-MATCH",
+          "factor": "COUNTERPARTY",
+          "points": 20.0,
+          "description": "Politically Exposed Person (PEP) associated"
+        },
+        {
+          "code": "RC-PATTERN-ANOMALY",
+          "factor": "STRUCTURAL",
+          "points": 18.400000000000002,
+          "description": "High transaction pattern anomaly detected"
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "LEGAL_NAME": "Liquid Robotics CORPORATION",
+      "INCORPORATION_COUNTRY_ID": 17,
+      "KYC_STATUS": "PENDING",
+      "KYC_RISK_RATING": "LOW",
+      "AMOUNT_USD": 137592.46,
+      "SANCTIONS_HIT": true,
+      "PEP_ASSOCIATED": false,
+      "UBO_PEP_COUNT": 0,
+      "UBO_SANCTIONS_MATCH_COUNT": 0,
+      "FATF_STATUS": "MEMBER",
+      "COUNTRY_RISK_SCORE": 34.0,
+      "PATTERN_RISK_SCORE": 16.0,
+      "BASELINE_TRANSACTION_COUNT": 0,
+      "BASELINE_AVG_AMOUNT": 0.0,
+      "RELATIONSHIP_YEARS": 0.999315537303217,
+      "REQUIRES_EDD": true,
+      "ADVERSE_MEDIA_FLAG": false,
+      "SLA_HOURS_LEFT": 0.0,
+      "ALERT_AGE_DAYS": 238.89225694444445
+    },
+    "expected": {
+      "weight_version": "v2.0-draft",
+      "risk_score": 42.75,
+      "risk_tier": "MEDIUM",
+      "evidence_confidence": 1.0,
+      "auto_clear_eligible": false,
+      "assigned_queue": "ESCALATE",
+      "queue_score": 82.83,
+      "reason_codes": [
+        {
+          "code": "RC-SANCTION-HIT",
+          "factor": "COUNTERPARTY",
+          "points": 30.0,
+          "description": "Sanctions match detected on entity or beneficial owner"
+        },
+        {
+          "code": "RC-HIGH-VALUE",
+          "factor": "EXPOSURE",
+          "points": 2.7518492,
+          "description": "High-value transaction exceeding threshold"
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "LEGAL_NAME": "PlaceILive.com PARTNERSHIP",
+      "INCORPORATION_COUNTRY_ID": 14,
+      "KYC_STATUS": "EXPIRED",
+      "KYC_RISK_RATING": "LOW",
+      "AMOUNT_USD": 6527.65,
+      "SANCTIONS_HIT": false,
+      "PEP_ASSOCIATED": true,
+      "UBO_PEP_COUNT": 1,
+      "UBO_SANCTIONS_MATCH_COUNT": 0,
+      "FATF_STATUS": "BLACK_LIST",
+      "COUNTRY_RISK_SCORE": 35.0,
+      "PATTERN_RISK_SCORE": 11.0,
+      "BASELINE_TRANSACTION_COUNT": 1,
+      "BASELINE_AVG_AMOUNT": 4812.57,
+      "RELATIONSHIP_YEARS": 20.788501026694046,
+      "REQUIRES_EDD": true,
+      "ADVERSE_MEDIA_FLAG": false,
+      "SLA_HOURS_LEFT": 0.0,
+      "ALERT_AGE_DAYS": 293.03238425925923
+    },
+    "expected": {
+      "weight_version": "v2.0-draft",
+      "risk_score": 42.33,
+      "risk_tier": "MEDIUM",
+      "evidence_confidence": 1.0,
+      "auto_clear_eligible": false,
+      "assigned_queue": "ESCALATE",
+      "queue_score": 82.7,
+      "reason_codes": [
+        {
+          "code": "RC-PEP-MATCH",
+          "factor": "COUNTERPARTY",
+          "points": 20.0,
+          "description": "Politically Exposed Person (PEP) associated"
+        },
+        {
+          "code": "RC-FATF-JURISDICTION",
+          "factor": "JURISDICTION",
+          "points": 20.0,
+          "description": "High-risk FATF listed jurisdiction"
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "LEGAL_NAME": "PatientsLikeMe PARTNERSHIP",
+      "INCORPORATION_COUNTRY_ID": 5,
+      "KYC_STATUS": "EXPIRED",
+      "KYC_RISK_RATING": "MEDIUM",
+      "AMOUNT_USD": 7962.94,
+      "SANCTIONS_HIT": true,
+      "PEP_ASSOCIATED": false,
+      "UBO_PEP_COUNT": 0,
+      "UBO_SANCTIONS_MATCH_COUNT": 0,
+      "FATF_STATUS": "MEMBER",
+      "COUNTRY_RISK_SCORE": 48.0,
+      "PATTERN_RISK_SCORE": 11.0,
+      "BASELINE_TRANSACTION_COUNT": 0,
+      "BASELINE_AVG_AMOUNT": 0.0,
+      "RELATIONSHIP_YEARS": 20.95277207392197,
+      "REQUIRES_EDD": true,
+      "ADVERSE_MEDIA_FLAG": true,
+      "SLA_HOURS_LEFT": 0.0,
+      "ALERT_AGE_DAYS": 62.182615740740744
+    },
+    "expected": {
+      "weight_version": "v2.0-draft",
+      "risk_score": 41.96,
+      "risk_tier": "MEDIUM",
+      "evidence_confidence": 1.0,
+      "auto_clear_eligible": false,
+      "assigned_queue": "ESCALATE",
+      "queue_score": 82.59,
+      "reason_codes": [
+        {
+          "code": "RC-SANCTION-HIT",
+          "factor": "COUNTERPARTY",
+          "points": 30.0,
+          "description": "Sanctions match detected on entity or beneficial owner"
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "LEGAL_NAME": "NerdWallet CORPORATION",
+      "INCORPORATION_COUNTRY_ID": 15,
+      "KYC_STATUS": "VERIFIED",
+      "KYC_RISK_RATING": "MEDIUM",
+      "AMOUNT_USD": 5611.61,
+      "SANCTIONS_HIT": false,
+      "PEP_ASSOCIATED": false,
+      "UBO_PEP_COUNT": 1,
+      "UBO_SANCTIONS_MATCH_COUNT": 0,
+      "FATF_STATUS": "BLACK_LIST",
+      "COUNTRY_RISK_SCORE": 39.0,
+      "PATTERN_RISK_SCORE": 9.0,
+      "BASELINE_TRANSACTION_COUNT": 0,
+      "BASELINE_AVG_AMOUNT": 0.0,
+      "RELATIONSHIP_YEARS": 3.8302532511978096,
+      "REQUIRES_EDD": false,
+      "ADVERSE_MEDIA_FLAG": false,
+      "SLA_HOURS_LEFT": 0.0,
+      "ALERT_AGE_DAYS": 410.05707175925926
+    },
+    "expected": {
+      "weight_version": "v2.0-draft",
+      "risk_score": 41.91,
+      "risk_tier": "MEDIUM",
+      "evidence_confidence": 1.0,
+      "auto_clear_eligible": false,
+      "assigned_queue": "STANDARD",
+      "queue_score": 82.57,
+      "reason_codes": [
+        {
+          "code": "RC-PEP-MATCH",
+          "factor": "COUNTERPARTY",
+          "points": 20.0,
+          "description": "Politically Exposed Person (PEP) associated"
+        },
+        {
+          "code": "RC-FATF-JURISDICTION",
+          "factor": "JURISDICTION",
+          "points": 20.0,
+          "description": "High-risk FATF listed jurisdiction"
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "LEGAL_NAME": "Child Care Desk CORPORATION",
+      "INCORPORATION_COUNTRY_ID": 10,
+      "KYC_STATUS": "EXPIRED",
+      "KYC_RISK_RATING": "MEDIUM",
+      "AMOUNT_USD": 11464.63,
+      "SANCTIONS_HIT": false,
+      "PEP_ASSOCIATED": true,
+      "UBO_PEP_COUNT": 1,
+      "UBO_SANCTIONS_MATCH_COUNT": 0,
+      "FATF_STATUS": "GREY_LIST",
+      "COUNTRY_RISK_SCORE": 40.0,
+      "PATTERN_RISK_SCORE": 8.0,
+      "BASELINE_TRANSACTION_COUNT": 0,
+      "BASELINE_AVG_AMOUNT": 0.0,
+      "RELATIONSHIP_YEARS": 7.195071868583162,
+      "REQUIRES_EDD": true,
+      "ADVERSE_MEDIA_FLAG": false,
+      "SLA_HOURS_LEFT": 0.0,
+      "ALERT_AGE_DAYS": 154.3124652777778
+    },
+    "expected": {
+      "weight_version": "v2.0-draft",
+      "risk_score": 41.83,
+      "risk_tier": "MEDIUM",
+      "evidence_confidence": 1.0,
+      "auto_clear_eligible": false,
+      "assigned_queue": "ESCALATE",
+      "queue_score": 82.55,
+      "reason_codes": [
+        {
+          "code": "RC-PEP-MATCH",
+          "factor": "COUNTERPARTY",
+          "points": 20.0,
+          "description": "Politically Exposed Person (PEP) associated"
+        },
+        {
+          "code": "RC-FATF-JURISDICTION",
+          "factor": "JURISDICTION",
+          "points": 20.0,
+          "description": "High-risk FATF listed jurisdiction"
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "LEGAL_NAME": "Zonability SOLE_PROP",
+      "INCORPORATION_COUNTRY_ID": 18,
+      "KYC_STATUS": "EXPIRED",
+      "KYC_RISK_RATING": "MEDIUM",
+      "AMOUNT_USD": 1098454.79,
+      "SANCTIONS_HIT": false,
+      "PEP_ASSOCIATED": true,
+      "UBO_PEP_COUNT": 2,
+      "UBO_SANCTIONS_MATCH_COUNT": 0,
+      "FATF_STATUS": "MEMBER",
+      "COUNTRY_RISK_SCORE": 49.0,
+      "PATTERN_RISK_SCORE": 10.0,
+      "BASELINE_TRANSACTION_COUNT": 0,
+      "BASELINE_AVG_AMOUNT": 0.0,
+      "RELATIONSHIP_YEARS": 8.05201916495551,
+      "REQUIRES_EDD": true,
+      "ADVERSE_MEDIA_FLAG": false,
+      "SLA_HOURS_LEFT": 0.0,
+      "ALERT_AGE_DAYS": 112.0273611111111
+    },
+    "expected": {
+      "weight_version": "v2.0-draft",
+      "risk_score": 41.8,
+      "risk_tier": "MEDIUM",
+      "evidence_confidence": 1.0,
+      "auto_clear_eligible": false,
+      "assigned_queue": "ESCALATE",
+      "queue_score": 82.54,
+      "reason_codes": [
+        {
+          "code": "RC-PEP-MATCH",
+          "factor": "COUNTERPARTY",
+          "points": 20.0,
+          "description": "Politically Exposed Person (PEP) associated"
+        },
+        {
+          "code": "RC-HIGH-VALUE",
+          "factor": "EXPOSURE",
+          "points": 10.0,
+          "description": "High-value transaction exceeding threshold"
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "LEGAL_NAME": "Energy Points, Inc. CORPORATION",
+      "INCORPORATION_COUNTRY_ID": 20,
+      "KYC_STATUS": "VERIFIED",
+      "KYC_RISK_RATING": "LOW",
+      "AMOUNT_USD": 6148.57,
+      "SANCTIONS_HIT": false,
+      "PEP_ASSOCIATED": true,
+      "UBO_PEP_COUNT": 1,
+      "UBO_SANCTIONS_MATCH_COUNT": 1,
+      "FATF_STATUS": "MEMBER",
+      "COUNTRY_RISK_SCORE": 39.0,
+      "PATTERN_RISK_SCORE": 18.0,
+      "BASELINE_TRANSACTION_COUNT": 0,
+      "BASELINE_AVG_AMOUNT": 0.0,
+      "RELATIONSHIP_YEARS": 0.6461327857631759,
+      "REQUIRES_EDD": true,
+      "ADVERSE_MEDIA_FLAG": false,
+      "SLA_HOURS_LEFT": 0.0,
+      "ALERT_AGE_DAYS": 445.0871990740741
+    },
+    "expected": {
+      "weight_version": "v2.0-draft",
+      "risk_score": 41.52,
+      "risk_tier": "MEDIUM",
+      "evidence_confidence": 1.0,
+      "auto_clear_eligible": false,
+      "assigned_queue": "ESCALATE",
+      "queue_score": 82.46,
+      "reason_codes": [
+        {
+          "code": "RC-SANCTION-HIT",
+          "factor": "COUNTERPARTY",
+          "points": 30.0,
+          "description": "Sanctions match detected on entity or beneficial owner"
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "LEGAL_NAME": "Accenture CORPORATION",
+      "INCORPORATION_COUNTRY_ID": 15,
+      "KYC_STATUS": "PENDING",
+      "KYC_RISK_RATING": "LOW",
+      "AMOUNT_USD": 6816.29,
+      "SANCTIONS_HIT": false,
+      "PEP_ASSOCIATED": false,
+      "UBO_PEP_COUNT": 1,
+      "UBO_SANCTIONS_MATCH_COUNT": 0,
+      "FATF_STATUS": "BLACK_LIST",
+      "COUNTRY_RISK_SCORE": 37.0,
+      "PATTERN_RISK_SCORE": 6.0,
+      "BASELINE_TRANSACTION_COUNT": 0,
+      "BASELINE_AVG_AMOUNT": 0.0,
+      "RELATIONSHIP_YEARS": 1.3278576317590691,
+      "REQUIRES_EDD": false,
+      "ADVERSE_MEDIA_FLAG": false,
+      "SLA_HOURS_LEFT": 0.0,
+      "ALERT_AGE_DAYS": 320.4553240740741
+    },
+    "expected": {
+      "weight_version": "v2.0-draft",
+      "risk_score": 41.34,
+      "risk_tier": "MEDIUM",
+      "evidence_confidence": 1.0,
+      "auto_clear_eligible": false,
+      "assigned_queue": "STANDARD",
+      "queue_score": 82.4,
+      "reason_codes": [
+        {
+          "code": "RC-PEP-MATCH",
+          "factor": "COUNTERPARTY",
+          "points": 20.0,
+          "description": "Politically Exposed Person (PEP) associated"
+        },
+        {
+          "code": "RC-FATF-JURISDICTION",
+          "factor": "JURISDICTION",
+          "points": 20.0,
+          "description": "High-risk FATF listed jurisdiction"
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "LEGAL_NAME": "LOGIXDATA, LLC SOLE_PROP",
+      "INCORPORATION_COUNTRY_ID": 9,
+      "KYC_STATUS": "VERIFIED",
+      "KYC_RISK_RATING": "LOW",
+      "AMOUNT_USD": 33034.48,
+      "SANCTIONS_HIT": false,
+      "PEP_ASSOCIATED": true,
+      "UBO_PEP_COUNT": 1,
+      "UBO_SANCTIONS_MATCH_COUNT": 0,
+      "FATF_STATUS": "GREY_LIST",
+      "COUNTRY_RISK_SCORE": 13.0,
+      "PATTERN_RISK_SCORE": 2.0,
+      "BASELINE_TRANSACTION_COUNT": 0,
+      "BASELINE_AVG_AMOUNT": 0.0,
+      "RELATIONSHIP_YEARS": 5.3990417522245036,
+      "REQUIRES_EDD": true,
+      "ADVERSE_MEDIA_FLAG": false,
+      "SLA_HOURS_LEFT": 0.0,
+      "ALERT_AGE_DAYS": 132.18398148148148
+    },
+    "expected": {
+      "weight_version": "v2.0-draft",
+      "risk_score": 41.06,
+      "risk_tier": "MEDIUM",
+      "evidence_confidence": 1.0,
+      "auto_clear_eligible": false,
+      "assigned_queue": "ESCALATE",
+      "queue_score": 82.32,
+      "reason_codes": [
+        {
+          "code": "RC-PEP-MATCH",
+          "factor": "COUNTERPARTY",
+          "points": 20.0,
+          "description": "Politically Exposed Person (PEP) associated"
+        },
+        {
+          "code": "RC-FATF-JURISDICTION",
+          "factor": "JURISDICTION",
+          "points": 20.0,
+          "description": "High-risk FATF listed jurisdiction"
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "LEGAL_NAME": "Persint CORPORATION",
+      "INCORPORATION_COUNTRY_ID": 18,
+      "KYC_STATUS": "EXPIRED",
+      "KYC_RISK_RATING": "LOW",
+      "AMOUNT_USD": 10956.24,
+      "SANCTIONS_HIT": true,
+      "PEP_ASSOCIATED": false,
+      "UBO_PEP_COUNT": 1,
+      "UBO_SANCTIONS_MATCH_COUNT": 1,
+      "FATF_STATUS": "MEMBER",
+      "COUNTRY_RISK_SCORE": 38.0,
+      "PATTERN_RISK_SCORE": 12.0,
+      "BASELINE_TRANSACTION_COUNT": 0,
+      "BASELINE_AVG_AMOUNT": 0.0,
+      "RELATIONSHIP_YEARS": 1.9657768651608487,
+      "REQUIRES_EDD": true,
+      "ADVERSE_MEDIA_FLAG": false,
+      "SLA_HOURS_LEFT": 0.0,
+      "ALERT_AGE_DAYS": 193.26547453703705
+    },
+    "expected": {
+      "weight_version": "v2.0-draft",
+      "risk_score": 40.22,
+      "risk_tier": "MEDIUM",
+      "evidence_confidence": 1.0,
+      "auto_clear_eligible": false,
+      "assigned_queue": "ESCALATE",
+      "queue_score": 82.07,
+      "reason_codes": [
+        {
+          "code": "RC-SANCTION-HIT",
+          "factor": "COUNTERPARTY",
+          "points": 30.0,
+          "description": "Sanctions match detected on entity or beneficial owner"
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "LEGAL_NAME": "BizVizz PARTNERSHIP",
+      "INCORPORATION_COUNTRY_ID": 20,
+      "KYC_STATUS": "EXPIRED",
+      "KYC_RISK_RATING": "LOW",
+      "AMOUNT_USD": 62.64,
+      "SANCTIONS_HIT": false,
+      "PEP_ASSOCIATED": true,
+      "UBO_PEP_COUNT": 1,
+      "UBO_SANCTIONS_MATCH_COUNT": 0,
+      "FATF_STATUS": "MEMBER",
+      "COUNTRY_RISK_SCORE": 13.0,
+      "PATTERN_RISK_SCORE": 88.0,
+      "BASELINE_TRANSACTION_COUNT": 1,
+      "BASELINE_AVG_AMOUNT": 28.27,
+      "RELATIONSHIP_YEARS": 2.915811088295688,
+      "REQUIRES_EDD": true,
+      "ADVERSE_MEDIA_FLAG": false,
+      "SLA_HOURS_LEFT": 0.0,
+      "ALERT_AGE_DAYS": 261.64931712962965
+    },
+    "expected": {
+      "weight_version": "v2.0-draft",
+      "risk_score": 40.2,
+      "risk_tier": "MEDIUM",
+      "evidence_confidence": 1.0,
+      "auto_clear_eligible": false,
+      "assigned_queue": "ESCALATE",
+      "queue_score": 82.06,
+      "reason_codes": [
+        {
+          "code": "RC-PEP-MATCH",
+          "factor": "COUNTERPARTY",
+          "points": 20.0,
+          "description": "Politically Exposed Person (PEP) associated"
+        },
+        {
+          "code": "RC-PATTERN-ANOMALY",
+          "factor": "STRUCTURAL",
+          "points": 17.6,
+          "description": "High transaction pattern anomaly detected"
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "LEGAL_NAME": "H3 Biomedicine LLC",
+      "INCORPORATION_COUNTRY_ID": 7,
+      "KYC_STATUS": "VERIFIED",
+      "KYC_RISK_RATING": "LOW",
+      "AMOUNT_USD": 5567307.16,
+      "SANCTIONS_HIT": false,
+      "PEP_ASSOCIATED": true,
+      "UBO_PEP_COUNT": 1,
+      "UBO_SANCTIONS_MATCH_COUNT": 1,
+      "FATF_STATUS": "MEMBER",
+      "COUNTRY_RISK_SCORE": 35.0,
+      "PATTERN_RISK_SCORE": 95.0,
+      "BASELINE_TRANSACTION_COUNT": 0,
+      "BASELINE_AVG_AMOUNT": 0.0,
+      "RELATIONSHIP_YEARS": 2.6858316221765914,
+      "REQUIRES_EDD": true,
+      "ADVERSE_MEDIA_FLAG": false,
+      "SLA_HOURS_LEFT": 0.0,
+      "ALERT_AGE_DAYS": 53.77754629629629
+    },
+    "expected": {
+      "weight_version": "v2.0-draft",
+      "risk_score": 66.0,
+      "risk_tier": "HIGH",
+      "evidence_confidence": 1.0,
+      "auto_clear_eligible": false,
+      "assigned_queue": "ESCALATE",
+      "queue_score": 89.8,
+      "reason_codes": [
+        {
+          "code": "RC-SANCTION-HIT",
+          "factor": "COUNTERPARTY",
+          "points": 30.0,
+          "description": "Sanctions match detected on entity or beneficial owner"
+        },
+        {
+          "code": "RC-PATTERN-ANOMALY",
+          "factor": "STRUCTURAL",
+          "points": 19.0,
+          "description": "High transaction pattern anomaly detected"
+        },
+        {
+          "code": "RC-HIGH-VALUE",
+          "factor": "EXPOSURE",
+          "points": 10.0,
+          "description": "High-value transaction exceeding threshold"
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "LEGAL_NAME": "H3 Biomedicine LLC",
+      "INCORPORATION_COUNTRY_ID": 7,
+      "KYC_STATUS": "VERIFIED",
+      "KYC_RISK_RATING": "LOW",
+      "AMOUNT_USD": 5567307.16,
+      "SANCTIONS_HIT": false,
+      "PEP_ASSOCIATED": true,
+      "UBO_PEP_COUNT": 1,
+      "UBO_SANCTIONS_MATCH_COUNT": 1,
+      "FATF_STATUS": "HIGH_RISK",
+      "COUNTRY_RISK_SCORE": 35.0,
+      "PATTERN_RISK_SCORE": 95.0,
+      "BASELINE_TRANSACTION_COUNT": 0,
+      "BASELINE_AVG_AMOUNT": 0.0,
+      "RELATIONSHIP_YEARS": 2.6858316221765914,
+      "REQUIRES_EDD": true,
+      "ADVERSE_MEDIA_FLAG": false,
+      "SLA_HOURS_LEFT": 0.0,
+      "ALERT_AGE_DAYS": 53.77754629629629
+    },
+    "expected": {
+      "weight_version": "v2.0-draft",
+      "risk_score": 79.0,
+      "risk_tier": "HIGH",
+      "evidence_confidence": 1.0,
+      "auto_clear_eligible": false,
+      "assigned_queue": "ESCALATE",
+      "queue_score": 93.7,
+      "reason_codes": [
+        {
+          "code": "RC-SANCTION-HIT",
+          "factor": "COUNTERPARTY",
+          "points": 30.0,
+          "description": "Sanctions match detected on entity or beneficial owner"
+        },
+        {
+          "code": "RC-FATF-JURISDICTION",
+          "factor": "JURISDICTION",
+          "points": 20.0,
+          "description": "High-risk FATF listed jurisdiction"
+        },
+        {
+          "code": "RC-PATTERN-ANOMALY",
+          "factor": "STRUCTURAL",
+          "points": 19.0,
+          "description": "High transaction pattern anomaly detected"
+        },
+        {
+          "code": "RC-HIGH-VALUE",
+          "factor": "EXPOSURE",
+          "points": 10.0,
+          "description": "High-value transaction exceeding threshold"
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "LEGAL_NAME": "H3 Biomedicine LLC",
+      "INCORPORATION_COUNTRY_ID": 7,
+      "KYC_STATUS": "VERIFIED",
+      "KYC_RISK_RATING": "LOW",
+      "AMOUNT_USD": 5000.0,
+      "SANCTIONS_HIT": false,
+      "PEP_ASSOCIATED": true,
+      "UBO_PEP_COUNT": 1,
+      "UBO_SANCTIONS_MATCH_COUNT": 1,
+      "FATF_STATUS": "MEMBER",
+      "COUNTRY_RISK_SCORE": 35.0,
+      "PATTERN_RISK_SCORE": 95.0,
+      "BASELINE_TRANSACTION_COUNT": 10,
+      "BASELINE_AVG_AMOUNT": 1000.0,
+      "RELATIONSHIP_YEARS": 2.6858316221765914,
+      "REQUIRES_EDD": true,
+      "ADVERSE_MEDIA_FLAG": false,
+      "SLA_HOURS_LEFT": 0.0,
+      "ALERT_AGE_DAYS": 53.77754629629629
+    },
+    "expected": {
+      "weight_version": "v2.0-draft",
+      "risk_score": 61.1,
+      "risk_tier": "HIGH",
+      "evidence_confidence": 1.0,
+      "auto_clear_eligible": false,
+      "assigned_queue": "ESCALATE",
+      "queue_score": 88.33,
+      "reason_codes": [
+        {
+          "code": "RC-SANCTION-HIT",
+          "factor": "COUNTERPARTY",
+          "points": 30.0,
+          "description": "Sanctions match detected on entity or beneficial owner"
+        },
+        {
+          "code": "RC-PATTERN-ANOMALY",
+          "factor": "STRUCTURAL",
+          "points": 19.0,
+          "description": "High transaction pattern anomaly detected"
+        },
+        {
+          "code": "RC-BASELINE-DEVIATION",
+          "factor": "BEHAVIOURAL",
+          "points": 5.0,
+          "description": "Significant amount deviation from historical baseline"
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "INCORPORATION_COUNTRY_ID": 7,
+      "KYC_STATUS": "VERIFIED",
+      "KYC_RISK_RATING": "LOW",
+      "AMOUNT_USD": 5567307.16,
+      "SANCTIONS_HIT": false,
+      "PEP_ASSOCIATED": true,
+      "UBO_PEP_COUNT": 1,
+      "UBO_SANCTIONS_MATCH_COUNT": 1,
+      "FATF_STATUS": "MEMBER",
+      "COUNTRY_RISK_SCORE": 35.0,
+      "PATTERN_RISK_SCORE": 95.0,
+      "BASELINE_TRANSACTION_COUNT": 0,
+      "BASELINE_AVG_AMOUNT": 0.0,
+      "RELATIONSHIP_YEARS": 2.6858316221765914,
+      "REQUIRES_EDD": true,
+      "ADVERSE_MEDIA_FLAG": false,
+      "SLA_HOURS_LEFT": 0.0,
+      "ALERT_AGE_DAYS": 53.77754629629629
+    },
+    "expected": {
+      "weight_version": "v2.0-draft",
+      "risk_score": 69.75,
+      "risk_tier": "HIGH",
+      "evidence_confidence": 0.75,
+      "auto_clear_eligible": false,
+      "assigned_queue": "ESCALATE",
+      "queue_score": 90.92,
+      "reason_codes": [
+        {
+          "code": "RC-SANCTION-HIT",
+          "factor": "COUNTERPARTY",
+          "points": 30.0,
+          "description": "Sanctions match detected on entity or beneficial owner"
+        },
+        {
+          "code": "RC-PATTERN-ANOMALY",
+          "factor": "STRUCTURAL",
+          "points": 19.0,
+          "description": "High transaction pattern anomaly detected"
+        },
+        {
+          "code": "RC-HIGH-VALUE",
+          "factor": "EXPOSURE",
+          "points": 10.0,
+          "description": "High-value transaction exceeding threshold"
+        },
+        {
+          "code": "RC-DATA-MISSING",
+          "factor": "DATA_INTEGRITY",
+          "points": 3.75,
+          "description": "Missing mandatory fields: LEGAL_NAME"
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "KYC_STATUS": "VERIFIED",
+      "KYC_RISK_RATING": "LOW",
+      "AMOUNT_USD": 5567307.16,
+      "SANCTIONS_HIT": false,
+      "PEP_ASSOCIATED": true,
+      "UBO_PEP_COUNT": 1,
+      "UBO_SANCTIONS_MATCH_COUNT": 1,
+      "FATF_STATUS": "MEMBER",
+      "COUNTRY_RISK_SCORE": 35.0,
+      "PATTERN_RISK_SCORE": 95.0,
+      "BASELINE_TRANSACTION_COUNT": 0,
+      "BASELINE_AVG_AMOUNT": 0.0,
+      "RELATIONSHIP_YEARS": 2.6858316221765914,
+      "REQUIRES_EDD": true,
+      "ADVERSE_MEDIA_FLAG": false,
+      "SLA_HOURS_LEFT": 0.0,
+      "ALERT_AGE_DAYS": 53.77754629629629
+    },
+    "expected": {
+      "weight_version": "v2.0-draft",
+      "risk_score": 73.5,
+      "risk_tier": "HIGH",
+      "evidence_confidence": 0.5,
+      "auto_clear_eligible": false,
+      "assigned_queue": "DATA_CHASE",
+      "queue_score": 92.05,
+      "reason_codes": [
+        {
+          "code": "RC-SANCTION-HIT",
+          "factor": "COUNTERPARTY",
+          "points": 30.0,
+          "description": "Sanctions match detected on entity or beneficial owner"
+        },
+        {
+          "code": "RC-PATTERN-ANOMALY",
+          "factor": "STRUCTURAL",
+          "points": 19.0,
+          "description": "High transaction pattern anomaly detected"
+        },
+        {
+          "code": "RC-HIGH-VALUE",
+          "factor": "EXPOSURE",
+          "points": 10.0,
+          "description": "High-value transaction exceeding threshold"
+        },
+        {
+          "code": "RC-DATA-MISSING",
+          "factor": "DATA_INTEGRITY",
+          "points": 7.5,
+          "description": "Missing mandatory fields: LEGAL_NAME, INCORPORATION_COUNTRY_ID"
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "KYC_RISK_RATING": "LOW",
+      "AMOUNT_USD": 5567307.16,
+      "SANCTIONS_HIT": false,
+      "PEP_ASSOCIATED": true,
+      "UBO_PEP_COUNT": 1,
+      "UBO_SANCTIONS_MATCH_COUNT": 1,
+      "FATF_STATUS": "MEMBER",
+      "COUNTRY_RISK_SCORE": 35.0,
+      "PATTERN_RISK_SCORE": 95.0,
+      "BASELINE_TRANSACTION_COUNT": 0,
+      "BASELINE_AVG_AMOUNT": 0.0,
+      "RELATIONSHIP_YEARS": 2.6858316221765914,
+      "REQUIRES_EDD": true,
+      "ADVERSE_MEDIA_FLAG": false,
+      "SLA_HOURS_LEFT": 0.0,
+      "ALERT_AGE_DAYS": 53.77754629629629
+    },
+    "expected": {
+      "weight_version": "v2.0-draft",
+      "risk_score": 77.25,
+      "risk_tier": "HIGH",
+      "evidence_confidence": 0.25,
+      "auto_clear_eligible": false,
+      "assigned_queue": "DATA_CHASE",
+      "queue_score": 93.17,
+      "reason_codes": [
+        {
+          "code": "RC-SANCTION-HIT",
+          "factor": "COUNTERPARTY",
+          "points": 30.0,
+          "description": "Sanctions match detected on entity or beneficial owner"
+        },
+        {
+          "code": "RC-PATTERN-ANOMALY",
+          "factor": "STRUCTURAL",
+          "points": 19.0,
+          "description": "High transaction pattern anomaly detected"
+        },
+        {
+          "code": "RC-HIGH-VALUE",
+          "factor": "EXPOSURE",
+          "points": 10.0,
+          "description": "High-value transaction exceeding threshold"
+        },
+        {
+          "code": "RC-DATA-MISSING",
+          "factor": "DATA_INTEGRITY",
+          "points": 11.25,
+          "description": "Missing mandatory fields: LEGAL_NAME, INCORPORATION_COUNTRY_ID, KYC_STATUS"
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "KYC_RISK_RATING": "LOW",
+      "SANCTIONS_HIT": false,
+      "PEP_ASSOCIATED": true,
+      "UBO_PEP_COUNT": 1,
+      "UBO_SANCTIONS_MATCH_COUNT": 1,
+      "FATF_STATUS": "MEMBER",
+      "COUNTRY_RISK_SCORE": 35.0,
+      "PATTERN_RISK_SCORE": 95.0,
+      "BASELINE_TRANSACTION_COUNT": 0,
+      "BASELINE_AVG_AMOUNT": 0.0,
+      "RELATIONSHIP_YEARS": 2.6858316221765914,
+      "REQUIRES_EDD": true,
+      "ADVERSE_MEDIA_FLAG": false,
+      "SLA_HOURS_LEFT": 0.0,
+      "ALERT_AGE_DAYS": 53.77754629629629
+    },
+    "expected": {
+      "weight_version": "v2.0-draft",
+      "risk_score": 71.0,
+      "risk_tier": "HIGH",
+      "evidence_confidence": 0.0,
+      "auto_clear_eligible": false,
+      "assigned_queue": "DATA_CHASE",
+      "queue_score": 91.3,
+      "reason_codes": [
+        {
+          "code": "RC-SANCTION-HIT",
+          "factor": "COUNTERPARTY",
+          "points": 30.0,
+          "description": "Sanctions match detected on entity or beneficial owner"
+        },
+        {
+          "code": "RC-PATTERN-ANOMALY",
+          "factor": "STRUCTURAL",
+          "points": 19.0,
+          "description": "High transaction pattern anomaly detected"
+        },
+        {
+          "code": "RC-DATA-MISSING",
+          "factor": "DATA_INTEGRITY",
+          "points": 15.0,
+          "description": "Missing mandatory fields: LEGAL_NAME, INCORPORATION_COUNTRY_ID, KYC_STATUS, AMOUNT_USD"
+        }
+      ]
+    }
+  }
+]

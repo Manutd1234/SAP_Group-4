@@ -26,40 +26,40 @@ async function render() {
   );
 }
 
-test("server-renders the RiskSignal control center", async () => {
+test("server-renders the RiskSignal case dashboard shell", async () => {
   const response = await render();
   assert.equal(response.status, 200);
   assert.match(response.headers.get("content-type") ?? "", /^text\/html\b/i);
 
   const html = await response.text();
   assert.match(html, /<title>RiskSignal \| Financial Crime AI<\/title>/i);
-  assert.match(html, /Risk control center/);
-  assert.match(html, /Focus human attention where it matters most/);
-  assert.match(html, /Orion Exports Pte Ltd/);
-  assert.match(html, /From signal to accountable decision/);
+  assert.match(html, /SAP Case Management/);
+  assert.match(html, /Case Management/);
   assert.doesNotMatch(html, /codex-preview/);
   assert.doesNotMatch(html, /react-loading-skeleton/);
 });
 
-test("ships governance and architecture artefacts", async () => {
-  const [page, layout, architecture, governance] = await Promise.all([
+test("wires the case dashboard to the real build-time scoring artefact", async () => {
+  const [page, layout, cases, buildScript, engineRoute, architecture, governance] = await Promise.all([
     readFile(new URL("../app/page.tsx", import.meta.url), "utf8"),
     readFile(new URL("../app/layout.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../app/api/cases/route.ts", import.meta.url), "utf8"),
+    readFile(new URL("../scripts/build_cases.py", import.meta.url), "utf8"),
+    readFile(new URL("../app/lib/v2-scoring.ts", import.meta.url), "utf8"),
     readFile(new URL("../docs/ARCHITECTURE.md", import.meta.url), "utf8"),
     readFile(new URL("../Skills.md", import.meta.url), "utf8"),
   ]);
 
-  assert.match(page, /Human decision required/);
-  assert.match(page, /AI cannot release, escalate or file this case/);
-  assert.match(page, /Risk factor breakdown/);
-  assert.match(page, /Integrated workflow studio/);
-  assert.match(page, /12 auditable controls/);
-  assert.match(page, /Problem 1 · Outdated framework/);
-  assert.match(page, /Problem 2 · Operational inefficiency/);
-  assert.match(page, /Problem 3 · Regulatory intensity/);
-  assert.match(page, /SAP HANA Cloud/);
-  assert.match(page, /Llama Guard 3/);
+  assert.match(page, /ShellBar/);
+  assert.match(page, /KpiTiles/);
+  assert.match(page, /CaseTable/);
+  assert.match(page, /CaseDetailModal/);
+  assert.match(page, /\/api\/cases/);
   assert.match(layout, /openGraph/);
+  assert.match(cases, /data\/cases\.json/);
+  assert.match(buildScript, /calculate_v2_risk_score/);
+  assert.match(buildScript, /FACTOR_WEIGHTS/);
+  assert.match(engineRoute, /RC-DATA-MISSING/);
   assert.match(architecture, /Transaction-to-decision workflow/);
   assert.match(architecture, /reason codes/);
   assert.match(governance, /Decision support only/);

@@ -1,103 +1,98 @@
-"""Serve RiskSignal model signals through a KServe-compatible HTTP API."""
-
-from __future__ import annotations
-
-import os
-from pathlib import Path
-from typing import Any
-
 import joblib
-import pandas as pd
-from fastapi import FastAPI, HTTPException
-from pydantic import BaseModel, Field
+import time
+import logging
+import os
+import numpy as np
+from flask import Flask, request
 
+app = Flask(__name__)
+classifier = None
+scaler = None
+log = logging.getLogger("classifier-logger")
+log.setLevel(os.environ.get("LOGLEVEL", "INFO"))
 
-class PredictionRequest(BaseModel):
-    instances: list[dict[str, float | int]] = Field(min_length=1, max_length=500)
+def init():
+    global classifier, scaler
+    print("app starting...")
+    model_dir = os.getenv("MODEL_DIR", "/mnt/models/")
+    
+    # Robust fallback for local Docker / SAP AI Core execution
+    if not os.path.exists(model_dir) or not os.listdir(model_dir):
+        print(f"Notice: MODEL_DIR '{model_dir}' empty or missing. Falling back to local model directory '/app/model/'...")
+        model_dir = "/app/model/"
+        if not os.path.exists(model_dir):
+            model_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), "../model/"))
 
+    if not os.path.exists(model_dir):
+        os.makedirs(model_dir, exist_ok=True)
 
-app = FastAPI(
-    title="RiskSignal narrow AI",
-    version="1.0.0",
-    description="Bounded anomaly signal for governed financial-crime scoring.",
-)
-_bundle: dict[str, Any] | None = None
+    dirs = os.listdir(model_dir)
+    print(f"Contents of model directory ({model_dir}): {dirs}")
 
+    log.info("Loading model from: %s", model_dir)
+    model_path = os.path.join(model_dir, "classifier.pkl")
+    scaler_path = os.path.join(model_dir, "fincrime_scaler.pkl")
 
-def locate_model() -> Path:
-    configured = Path(os.getenv("MODEL_PATH", "/app/model/risk_model.joblib"))
-    if configured.is_file():
-        return configured
+    if os.path.exists(model_path):
+        classifier = joblib.load(model_path)
+        print("Classifier model successfully loaded.")
+    else:
+        print(f"Warning: Model file not found at {model_path}")
 
-    storage_uri = os.getenv("STORAGE_URI")
-    if storage_uri:
-        storage_path = Path(storage_uri)
-        if storage_path.is_file():
-            return storage_path
-        candidates = sorted(storage_path.rglob("risk_model.joblib"))
-        if candidates:
-            return candidates[0]
+    if os.path.exists(scaler_path):
+        scaler = joblib.load(scaler_path)
+        print("Feature scaler successfully loaded.")
 
-    candidates = sorted(Path("/mnt/models").rglob("risk_model.joblib"))
-    if candidates:
-        return candidates[0]
-    raise FileNotFoundError("risk_model.joblib was not found")
+@app.route("/v1/models/classifier:infer", methods=["POST"])
+@app.route("/v1/models/{}:infer".format("classifier"), methods=["POST"])
+def infer():
+    time.sleep(0.01)
+    global classifier, scaler
+    input_json = dict(request.json or {})
+    input_data = input_json.get('data')
 
+    if classifier is None:
+        return {"error": "Model not initialized"}, 500
 
-def get_bundle() -> dict[str, Any]:
-    global _bundle
-    if _bundle is None:
-        _bundle = joblib.load(locate_model())
-    return _bundle
+    # Handles structured financial transaction risk scoring input
+    if isinstance(input_data, dict) or (isinstance(input_data, list) and isinstance(input_data[0], (int, float))):
+        if isinstance(input_data, dict):
+            features = [
+                float(input_data.get('OVERALL_RISK_SCORE', 0.0)),
+                float(input_data.get('AMOUNT_RISK_SCORE', 0.0)),
+                float(input_data.get('FREQUENCY_RISK_SCORE', 0.0)),
+                float(input_data.get('GEOGRAPHY_RISK_SCORE', 0.0)),
+                float(input_data.get('COUNTERPARTY_RISK_SCORE', 0.0)),
+                float(input_data.get('PATTERN_RISK_SCORE', 0.0)),
+                float(input_data.get('VELOCITY_RISK_SCORE', 0.0)),
+                float(max([input_data.get('AMOUNT_RISK_SCORE', 0.0), input_data.get('FREQUENCY_RISK_SCORE', 0.0), input_data.get('GEOGRAPHY_RISK_SCORE', 0.0)])),
+                float(np.mean([input_data.get('AMOUNT_RISK_SCORE', 0.0), input_data.get('FREQUENCY_RISK_SCORE', 0.0), input_data.get('GEOGRAPHY_RISK_SCORE', 0.0)])),
+                float(np.std([input_data.get('AMOUNT_RISK_SCORE', 0.0), input_data.get('FREQUENCY_RISK_SCORE', 0.0), input_data.get('GEOGRAPHY_RISK_SCORE', 0.0)])),
+                int(sum(1 for v in [input_data.get('AMOUNT_RISK_SCORE', 0.0), input_data.get('FREQUENCY_RISK_SCORE', 0.0), input_data.get('GEOGRAPHY_RISK_SCORE', 0.0)] if v > 50.0)),
+                int(bool(input_data.get('IS_ANOMALY', False)))
+            ]
+        else:
+            features = input_data
 
+        X_in = np.array([features])
+        if scaler is not None:
+            X_in = scaler.transform(X_in)
 
-def risk_band(probability: float) -> str:
-    if probability >= 0.70:
-        return "high"
-    if probability >= 0.45:
-        return "medium"
-    return "low"
-
-
-@app.get("/healthz")
-def health() -> dict[str, str]:
-    try:
-        bundle = get_bundle()
-    except (FileNotFoundError, OSError):
-        return {"status": "starting", "model": "unavailable"}
-    return {"status": "ready", "model": str(bundle["model_name"])}
-
-
-@app.post("/v1/models/risksignal:predict")
-def predict(request: PredictionRequest) -> dict[str, Any]:
-    try:
-        bundle = get_bundle()
-    except (FileNotFoundError, OSError) as error:
-        raise HTTPException(status_code=503, detail=str(error)) from error
-
-    features: list[str] = bundle["features"]
-    frame = pd.DataFrame(request.instances)
-    missing = set(features) - set(frame.columns)
-    if missing:
-        raise HTTPException(
-            status_code=422,
-            detail=f"Missing model features: {sorted(missing)}",
-        )
-
-    probabilities = bundle["model"].predict_proba(frame[features].fillna(0))[:, 1]
-    predictions = [
-        {
-            "risk_probability": round(float(probability), 6),
-            "risk_band": risk_band(float(probability)),
-            "model_signal_only": True,
+        predicted_tier = classifier.predict(X_in)[0]
+        return {
+            "risk_tier": str(predicted_tier),
+            "is_high_risk": str(predicted_tier).upper() == "HIGH",
+            "status": "success"
         }
-        for probability in probabilities
-    ]
+    
+    # Fallback legacy text message prediction
+    predicted = classifier.predict([str(input_data)])
+    is_spam = predicted[0] == 'spam' or str(predicted[0]).upper() == 'HIGH'
     return {
-        "model_name": bundle["model_name"],
-        "model_version": bundle["model_version"],
-        "predictions": predictions,
-        "decision_boundary": (
-            "This model does not release, hold, escalate or report transactions."
-        ),
+        "spam": bool(is_spam),
+        "prediction": str(predicted[0])
     }
+
+if __name__ == '__main__':
+    init()
+    app.run(host="0.0.0.0", debug=False, port=9001)
