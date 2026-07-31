@@ -1,6 +1,6 @@
 # Frontend Documentation — Case Management UI
 
-Detailed guide for Marcus's Fiori-styled case management dashboard (Next.js + React + TypeScript + Tailwind).
+Detailed guide for Marcus's Fiori-styled case management dashboard (Next.js + React + TypeScript + Tailwind v4).
 
 ---
 
@@ -12,309 +12,128 @@ Detailed guide for Marcus's Fiori-styled case management dashboard (Next.js + Re
 
 ---
 
-## 🎯 What This Component Does
+## 🎯 What This UI Does
 
-The **CaseTable** component displays a sortable, filterable table of financial crime cases with:
-- Priority badges (color-coded by risk tier: LOW/MEDIUM/HIGH)
-- Status tracking (Open, In Review, Resolved, etc.)
-- Days elapsed progress bar
-- **Hover tooltips** showing Joule AI explanations
-- Real-time filtering by priority and status
-- Search by case name or ID
-- Sortable columns (Priority, Case, Created Date, Days Elapsed)
+`app/page.tsx` renders: **shell bar → 5 KPI tiles → case table → detail modal**, driven by the real 500-case dataset in `datasets/`, scored at build time by Ian's v2 engine (see [../README.md](../README.md#-full-architecture) for the build-time pipeline).
 
-**Data source:** `/api/cases` (Marcus's route that assembles cases + applies v2 scoring)
+- Priority badges (low / medium / overdue / regulatory / closed — a P1–P5 cascade computed once in `scripts/build_cases.py`, not re-derived client-side)
+- 5 KPI tiles that double as filter toggles, kept in sync with the table's priority filter (one shared piece of state)
+- Sortable table (default: `queueScore` descending — "what do I work on first")
+- Search + priority + status filtering, all client-side
+- Click a row → explainability modal: per-factor score breakdown, queue-rank term breakdown, and Close Case / Escalate actions
+
+**Data source:** `/api/cases`, which serves the committed build-time artifact `data/cases.json` (see [../README.md](../README.md#-backend-setup) for how to regenerate it).
 
 ---
 
 ## 📦 Component Structure
 
-### `CaseTable.tsx` (500 lines)
-
-**Entry point:** `app/components/CaseTable.tsx`
-
-**Main responsibilities:**
-1. Fetch case data from `/api/cases` on mount
-2. Manage table state (filtering, sorting, search)
-3. Render Fiori-styled table with Tailwind CSS
-4. Show/hide Joule tooltips on hover
-5. Support in-place priority updates
-
-**Props:** None (fully self-contained)
-
-**State:**
-```typescript
-const [rows, setRows] = useState<CaseRow[]>([]);           // All cases
-const [loading, setLoading] = useState(true);              // Loading state
-const [error, setError] = useState<string | null>(null);   // Error message
-const [filterPriority, setFilterPriority] = useState('all');// Filter by risk tier
-const [filterStatus, setFilterStatus] = useState('all');   // Filter by status
-const [sortKey, setSortKey] = useState('daysElapsed');     // Sort column
-const [sortAsc, setSortAsc] = useState(false);             // Sort direction
-const [search, setSearch] = useState('');                  // Search query
-const [selectedId, setSelectedId] = useState(null);        // Selected row (unused)
-const [hoveredRow, setHoveredRow] = useState(null);        // Hover for tooltip
 ```
+app/
+├── page.tsx                      # Owns: fetched cases, filter state, selected-case-for-modal
+├── lib/
+│   ├── cases.ts                  # CaseRecord type, Priority/Status label & color maps, displayStatus()
+│   └── v2-scoring.ts             # TS mirror of narrow_ai/src/v2_scoring_engine.py
+└── components/
+    ├── ShellBar.tsx               # Top nav bar (decorative — no client routing behind it)
+    ├── KpiTiles.tsx                # 5 priority tiles, controlled by page.tsx
+    ├── CaseTable.tsx               # Presentational: rows/filters/onFilterChange/onRowSelect
+    └── CaseDetailModal.tsx         # Explainability modal
+```
+
+`page.tsx` is the only component that calls `fetch()`. Every other component is presentational — it takes data and callbacks as props and has no knowledge of `/api/cases`.
+
+### State ownership
+
+`page.tsx` owns:
+```typescript
+cases: CaseRecord[]             // fetched from /api/cases
+meta: CasesArtifactMeta | null  // factorWeights, queueWeights, asOf, etc.
+mutations: Record<string, Partial<CaseRecord>>  // Close/Escalate edits, mirrored to sessionStorage
+filters: { priority, status, search }           // shared by KpiTiles and CaseTable
+selectedCaseId: string | null                   // drives CaseDetailModal
+```
+
+`filters.priority` is the single source of truth for "which priority is active" — `KpiTiles`' `active` prop and `CaseTable`'s priority `<select>` both read and write it, so clicking a tile and picking the same value from the dropdown are the same action (clicking an already-active tile clears the filter).
+
+`CaseTable` keeps sort key/direction as its own local state (a pure display concern) but takes everything else as props.
 
 ---
 
 ## 🎨 User Interface
 
-### Table Layout
-
 ```
-┌─────────────────────────────────────────────────────────────────┐
-│                       Case Overview                             │
-│  Monitor and manage all open cases across priority levels...    │
-└─────────────────────────────────────────────────────────────────┘
-
-┌──────────────┐ ┌──────────────┐ ┌──────────────┐ ┌────────────┐
-│ Search       │ │ Priority ▼   │ │ Status ▼     │ │ 3 of 3 ★   │
-└──────────────┘ └──────────────┘ └──────────────┘ └────────────┘
-
 ┌──────────────────────────────────────────────────────────────────┐
-│ PRIORITY ↕  │ CASE ↕         │ STATUS  │ CREATED │ DAYS ELAPSED │
+│ S4  SAP Case Management     Home  Cases  Alerts  Reports  Admin  JM│
+└──────────────────────────────────────────────────────────────────┘
+Case Management
+
+┌ LOW ──────┐ ┌ MEDIUM ───┐ ┌ OVERDUE ──┐ ┌ REGULATORY┐ ┌ CLOSED ───┐
+│    62     │ │    12     │ │    20     │ │    62     │ │   344     │
+└───────────┘ └───────────┘ └───────────┘ └───────────┘ └───────────┘
+
+┌ Search   ┐ ┌ Priority ▼ ┐ ┌ Status ▼ ┐                156 of 500 cases
 ├──────────────────────────────────────────────────────────────────┤
-│ ● REGULATORY │ Orion Exports… │ Open    │ 07/26   │ ████░░░ 5d  │
-│ ● MEDIUM     │ TechVenture… │ In Rev… │ 07/19   │ ██░░░░░ 12d │
-│ ● LOW        │ Global Trade… │ Resol… │ 06/15   │ ███░░░░ 45d │
+│ PRIORITY ↕ │ CASE ↕ │ RISK ↕ │ QUEUE SCORE ↓ │ AGE ↕ │ STATUS │ AMOUNT│
+├──────────────────────────────────────────────────────────────────┤
+│ ● Regulatory │ Intelius PARTNERSHIP │ ▬▬▬▬ 76.6 │ 92.98 │ 549d │ Escalated │ $3.9M │
 └──────────────────────────────────────────────────────────────────┘
 ```
 
-### Hover Tooltip
-
-When you hover over a case row:
+Clicking a row opens `CaseDetailModal` (`role="dialog"`, `aria-modal`, Escape-to-close, focus trap, overlay-click-close):
 
 ```
-┌────────────────────────────────────┐
-│ Joule Analysis:                    │
-│                                    │
-│ Rapid multi-hop transfer detected: │
-│ 4 transfers within 31 minutes;     │
-│ 6.2× customer baseline...          │
-│                                    │
-│ (tooltip appears above row)        │
-└────────────────────────────────────┘
+Intelius PARTNERSHIP                                            ✕
+CASE-000286 · 1786
+
+CASE SUMMARY
+<Joule ALERT_SUMMARY text, or "No Joule summary available">
+Assigned To · Case Type · Amount · Last Updated · Resolution Target · Reviewing Manager
+
+WHY THIS SCORE                              risk 76.6 / 100 · HIGH
+  Counterparty    ████████████████████████  30 / 30
+  Jurisdiction    ████████████████████      20 / 20
+  Structural      ████████████████░░░░      16.6 / 20
+  ...
+  Reason codes: RC-SANCTION-HIT, RC-FATF-JURISDICTION, ...
+
+WHY THIS RANK                                queue 92.98 / 100
+  SLA urgency    100 × 0.35 = 35.0
+  Risk score     76.6 × 0.3 = 23.0
+  Reg exposure   100 × 0.25 = 25.0
+  Alert age      100 × 0.1 = 10.0
+
+Evidence confidence 1                        Queue: ESCALATE
+[ Close Case ]                                          [ Escalate ]
 ```
+
+The factor-bar maxima come from `meta.factorWeights` (shipped once in the artifact, not hardcoded in TSX) and the earned points come from `factorScores` on the case record — both computed in `scripts/build_cases.py` by mirroring the engine's own arithmetic, since `calculate_v2_risk_score()` itself only returns the total.
 
 ---
 
 ## 📊 Data Model
 
-### CaseRow Type
+`app/lib/cases.ts` is the source of truth for the frontend's `CaseRecord` type — it mirrors exactly what `scripts/build_cases.py` writes into `data/cases.json`:
 
 ```typescript
-interface CaseRow {
-  id: string;                    // Unique case ID
-  priority: Priority;            // 'low' | 'medium' | 'overdue' | 'regulatory'
-  caseName: string;              // Displayed in table
-  caseId: string;                // Reference ID
-  createdDate: string;           // MM/DD/YYYY
-  daysElapsed: number;           // Days since creation
-  status: Status;                // 'Open' | 'In Review' | 'Resolved' | etc.
-  description: string;           // Case summary (unused in table)
-  jouleExplanation: string;      // Shown in hover tooltip
-  riskScore: number;             // 0-100
-  riskTier: string;              // 'LOW' | 'MEDIUM' | 'HIGH'
-  company: string;               // Company name
-  transactionId: string;         // Transaction/alert ID
+interface CaseRecord {
+  caseId: string; caseNumber: string; caseTitle: string | null;
+  companyId: string; legalName: string; caseType: string | null;
+  status: 'OPEN' | 'CLOSED'; outcome: string | null;
+  assignedAnalyst: string | null; reviewingManager: string | null;
+  openedAt: string; dueDate: string; updatedAt: string | null; closedAt: string | null;
+  daysElapsed: number; amountUsd: number;
+  hasLinkedAlert: boolean; alertId: string | null; transactionId: string | null;
+  riskScore: number; riskTier: 'HIGH' | 'MEDIUM' | 'LOW'; evidenceConfidence: number;
+  autoClearEligible: boolean; assignedQueue: 'AUTO_CLEAR' | 'DATA_CHASE' | 'ESCALATE' | 'STANDARD';
+  queueScore: number; reasonCodes: ReasonCode[];
+  factorScores: FactorScores; queueTerms: QueueTerms;
+  priority: 'low' | 'medium' | 'overdue' | 'regulatory' | 'closed';
+  narrative: { alertSummary: string | null; riskDriver: string | null; recommendation: string | null };
 }
 ```
 
-### Data Mapping (from `/api/cases`)
-
-| API Field | Display Field | Example |
-|-----------|---------------|---------|
-| `legalName` | `caseName` | "Orion Exports Pte Ltd" |
-| `transactionId` | shown as subtext | "TXN-2024-0847" |
-| `riskTier` | `priority` (mapped) | HIGH → regulatory |
-| `status` | `status` | "Open" |
-| `createdAt` | `createdDate` | "07/26/2026" |
-| `daysElapsed` | `daysElapsed` | 5 |
-| `jouleExplanation` | tooltip on hover | "Rapid multi-hop..." |
-
----
-
-## 🎯 Features
-
-### 1. Filtering
-
-**Priority filter:**
-```typescript
-filterPriority: 'low' | 'medium' | 'overdue' | 'regulatory' | 'all'
-```
-- Default: 'all' (hides closed cases)
-- Updates table in real-time (client-side)
-
-**Status filter:**
-```typescript
-filterStatus: 'Open' | 'In Review' | 'Pending' | 'Escalated' | 'Resolved' | 'Closed' | 'all'
-```
-- Default: 'all'
-- Combined with priority filter (AND logic)
-
-### 2. Searching
-
-```typescript
-search: string  // User input
-```
-- Searches across: caseName, caseId
-- Case-insensitive
-- Real-time (no API call)
-
-### 3. Sorting
-
-**Sortable columns:**
-- `priority` — by risk tier order (REGULATORY → OVERDUE → MEDIUM → LOW → CLOSED)
-- `caseName` — alphabetical
-- `createdDate` — chronological
-- `daysElapsed` — numeric
-
-**Sort direction:** Ascending (↑) or Descending (↓)
-
-**Default:** Sort by `daysElapsed` descending (oldest cases first)
-
-### 4. Joule Tooltips
-
-**Trigger:** Hover over any case row
-
-**Content:** Shows `jouleExplanation` field (AI-generated case note)
-
-**Styling:**
-- Black background (`bg-[#1d2d3e]`)
-- White text
-- Positioned above row (bottom-full)
-- Max width: 32rem
-- Arrow pointer below tooltip
-
-**Current data:** Hardcoded in mock data
-
-**Future:** Will load from `JOULE_EXPLANATIONS_*.csv`
-
-### 5. Priority Escalation
-
-**In-place dropdown:**
-- Click the priority dot/badge in a row
-- Select new priority level
-- Updates row state (no API call in MVP)
-
-**Mapping:**
-```
-low ← LOW risk_tier
-medium ← MEDIUM risk_tier
-overdue ← ??? (currently unused, will map to overdue SLA alerts)
-regulatory ← HIGH risk_tier
-closed ← resolution
-```
-
----
-
-## 🔄 Data Flow
-
-### On Mount
-
-```
-1. CaseTable component renders
-2. useEffect runs:
-   - fetch('/api/cases')
-   - setLoading(true)
-3. API responds with:
-   {
-     success: true,
-     count: 3,
-     cases: [
-       { caseId: 'CASE-001', legalName: 'Orion...', riskTier: 'HIGH', ... },
-       ...
-     ]
-   }
-4. Transform API data → CaseRow[] format
-5. setRows(transformed)
-6. setLoading(false)
-```
-
-### On Filter/Sort/Search
-
-```
-1. User changes filter/sort/search dropdown or input
-2. setState(...) updates React state
-3. filtered array is computed (line ~370):
-   rows.filter(...).sort(...) 
-4. Table re-renders with new data
-5. No API call (all filtering is client-side)
-```
-
-### On Hover
-
-```
-1. onMouseEnter on table row
-2. setHoveredRow(row.id)
-3. Conditional render checks: hoveredRow === row.id && row.jouleExplanation
-4. Tooltip div appears (positioned absolutely)
-5. onMouseLeave clears hoveredRow
-```
-
----
-
-## 🛠️ Styling (Tailwind + Fiori Colors)
-
-### Color Palette
-
-**Priority levels:**
-```css
-low: dot: #188918 (green), badge: bg-[#f0faf0] text-[#188918]
-medium: dot: #e76500 (orange), badge: bg-[#fff4e0] text-[#e76500]
-overdue: dot: #aa0808 (red), badge: bg-[#ffeaea] text-[#aa0808]
-regulatory: dot: #6912d6 (purple), badge: bg-[#f5edff] text-[#6912d6]
-closed: dot: #8c9cb0 (gray), badge: bg-[#f0f2f5] text-[#8c9cb0]
-```
-
-**Status levels:**
-```css
-Open: bg-[#eaf4ff] text-[#0070f2] (light blue)
-In Review: bg-[#fff4e0] text-[#e76500] (light orange)
-Pending: bg-[#f5f6f7] text-[#6a7d8f] (light gray)
-Escalated: bg-[#ffeaea] text-[#aa0808] (light red)
-Resolved: bg-[#f0faf0] text-[#188918] (light green)
-Closed: bg-[#f0f2f5] text-[#8c9cb0] (light gray)
-```
-
-**Backgrounds:**
-```css
-Body: #f5f6f7 (Fiori light gray)
-Card: #ffffff (white)
-Row hover: #eaf4ff (Fiori light blue)
-Alternating rows: white / #fafbfc (very light gray)
-Tooltip: #1d2d3e (dark blue-gray) with white text
-```
-
----
-
-## 📝 Component API
-
-### Props
-None — component is fully self-contained
-
-### State Setters
-
-```typescript
-setRows(rows)           // Update case list
-setLoading(bool)        // Show/hide loading spinner
-setError(msg)           // Show error message
-setFilterPriority(p)    // Filter by priority
-setFilterStatus(s)      // Filter by status
-setSortKey(k)           // Set sort column
-setSortAsc(bool)        // Set sort direction
-setSearch(q)            // Update search query
-setHoveredRow(id)       // Hover tooltip
-```
-
-### Event Handlers
-
-```typescript
-handleSort(key)                    // Click column header to sort
-handlePriorityChange(id, priority) // Change priority in-place
-(no closeCase, escalate handlers yet)
-```
+`status` (`OPEN`/`CLOSED`) is the raw case status; `displayStatus()` in `app/lib/cases.ts` derives the richer badge text (`Open` / `Escalated` / `Overdue` / `Auto-Clear` / `Data Chase` / `Closed`) from `status` + `assignedQueue` + `priority`. Precedence is closed → escalated → overdue → auto-clear/data-chase → open: a case that's both ESCALATE-queued (Ian's risk-based queue routing) and SLA-breached shows as Escalated, not Overdue — regulatory concerns outrank timeliness.
 
 ---
 
@@ -322,123 +141,41 @@ handlePriorityChange(id, priority) // Change priority in-place
 
 ### GET /api/cases
 
-**Request:**
-```
-GET http://localhost:3000/api/cases
-```
-
-**Response:**
 ```json
 {
   "success": true,
-  "count": 3,
-  "cases": [
-    {
-      "caseId": "CASE-001",
-      "caseNumber": "SAP-2024-001",
-      "companyId": "CMPNY-123",
-      "legalName": "Orion Exports Pte Ltd",
-      "transactionId": "TXN-2024-0847",
-      "alertId": "ALERT-001",
-      "status": "Open",
-      "createdAt": "2026-07-25T17:54:24.020Z",
-      "daysElapsed": 5,
-      "amount": 247500,
-      "jouleExplanation": "Rapid multi-hop transfer detected...",
-      "riskScore": 87,
-      "riskTier": "HIGH",
-      "assignedQueue": "ESCALATE",
-      "queueScore": 85.5,
-      "reasonCodes": [...]
-    },
-    ...
-  ]
+  "count": 500,
+  "meta": {
+    "weightVersion": "v2.0-draft",
+    "factorWeights": { "COUNTERPARTY": 30, "JURISDICTION": 20, "...": "..." },
+    "queueWeights": { "slaUrgency": 0.35, "riskScore": 0.3, "regExposure": 0.25, "alertAge": 0.1 },
+    "asOf": "2026-07-30T17:07:00",
+    "totalCases": 500
+  },
+  "cases": [ { "caseId": "1786", "legalName": "Intelius PARTNERSHIP", "riskScore": 76.6, "...": "..." } ]
 }
 ```
 
-**Error response:**
-```json
-{
-  "error": "Failed to load cases"
-}
-```
+The route is a two-line wrapper (`app/api/cases/route.ts`) around a plain `import` of `data/cases.json` — no runtime CSV parsing, no Python at request time (the app runs on Cloudflare Workers, which has neither `child_process` nor `fs`).
+
+### POST /api/v2-scoring
+
+Thin wrapper around `calculateV2RiskScore()` in `app/lib/v2-scoring.ts`. Used by `tests/scoring-parity.test.mjs` to catch drift against the Python engine — POST a record with fields like `SANCTIONS_HIT`, `AMOUNT_USD`, `FATF_STATUS`, etc. and it returns the same shape as `calculate_v2_risk_score()` in Python.
 
 ---
 
-## 🚀 Performance Notes
+## 🐛 Known Gaps
 
-- **Rendering:** ~3–50 cases, no virtualization (acceptable for MVP)
-- **Sorting:** O(n log n), happens in-memory on every sort change
-- **Filtering:** O(n), happens for every keystroke in search
-- **Memory:** ~500 rows × 20 fields ≈ 100KB (minimal)
-
-**Optimization roadmap (if needed):**
-1. Virtualize table rows (if > 500 cases)
-2. Debounce search input (if lag on keystroke)
-3. Memoize filtered/sorted results (React.useMemo)
-4. Lazy-load case details on click
+- **No persistence:** Close/Escalate mutate local state, mirrored to `sessionStorage` only (survives a refresh, not a new session) — there's no database wired up (`.openai/hosting.json` has `d1: null`)
+- **No Joule retrieval:** the modal shows `narrative.alertSummary` from the artifact; live hybrid-RAG retrieval isn't wired in (see [../README.md](../README.md#-data-integration))
+- **No pagination/virtualization:** 500 rows render fine without it; would need addressing well before 5,000+
 
 ---
 
-## 🐛 Known Issues & TODOs
+## 🧪 Testing
 
-### Known Issues
-- ❌ **No persistence:** Clicking "Escalate" updates state only; no API call to save
-- ❌ **No case detail view:** Clicking a row highlights it but doesn't open a panel
-- ❌ **Export button:** Exists but does nothing
-- ❌ **No pagination:** Assumes < 100 cases
-
-### TODOs
-- [ ] Connect real CSV data (replace mock in `/api/cases`)
-- [ ] Add database persistence for case actions
-- [ ] Implement case detail modal with full risk breakdown
-- [ ] Add SAR filing workflow
-- [ ] Implement Joule Q&A panel (ask questions about specific case)
-- [ ] Add audit logging for all actions
-- [ ] Implement case reassignment/assignment flow
-
----
-
-## 🧪 Testing the Component
-
-### Manual Test Checklist
-
-1. **Load page:**
-   - Navigate to http://localhost:3000
-   - Click "Cases" nav button
-   - Table should render with 3 mock cases ✓
-
-2. **Sort:**
-   - Click "PRIORITY" header → sorts by priority ✓
-   - Click again → reverses sort ✓
-   - Click "DAYS ELAPSED" header → sorts by days ✓
-
-3. **Filter:**
-   - Select "High Priority (Regulatory)" from Priority dropdown → shows only 1 case ✓
-   - Reset to "All Priorities" → shows all 3 ✓
-   - Select "Resolved" from Status dropdown → shows only resolved cases ✓
-
-4. **Search:**
-   - Type "Orion" in search box → filters to "Orion Exports" case ✓
-   - Type "CASE-002" → filters to that case ✓
-   - Clear search → shows all ✓
-
-5. **Hover Tooltip:**
-   - Move mouse over "Orion Exports" row → black tooltip appears above ✓
-   - Tooltip shows: "Rapid multi-hop transfer detected..." ✓
-   - Move mouse away → tooltip disappears ✓
-
-6. **Priority Escalation:**
-   - Click the dot/badge in the Priority column → dropdown appears ✓
-   - Select new priority → row updates immediately ✓
-
-### Automated Testing (Unit Tests)
-
-Currently: None. Future candidates:
-- Test filtering logic (priority, status, search)
-- Test sorting logic (ascending/descending)
-- Test data transformation (API response → CaseRow)
-- Test hover tooltip visibility toggle
+- `npm test` — builds the app, then runs `tests/rendered-html.test.mjs` (SSR smoke test + architecture-artefact checks) and `tests/scoring-parity.test.mjs` (TS scoring engine vs Python engine, ±0.01 tolerance, over `data/scoring-parity-fixture.json`)
+- Manual checklist: load the dashboard, click a KPI tile (table filters, count matches the tile), click it again (filter clears), search a legal name, click a row (modal opens with score/rank breakdowns that sum to `riskScore`/`queueScore`), close via the ✕ and via Escape, Close Case (row leaves the default view, Closed tile increments), Escalate (only priorities above the current one are offered; disabled once already Overdue/Regulatory)
 
 ---
 
@@ -446,77 +183,16 @@ Currently: None. Future candidates:
 
 | File | Purpose |
 |------|---------|
-| `app/page.tsx` | Main layout + view router (delegates to CaseTable) |
-| `app/globals.css` | Tailwind config + Fiori colors |
-| `app/api/cases/route.ts` | Data source for cases |
-| `../docs/v2-scoring-plan.md` | Scoring logic behind risk_tier |
+| `app/page.tsx` | Fetches cases, owns filter/selection state, composes the four components |
+| `app/lib/cases.ts` | `CaseRecord` type + priority/status label & color maps |
+| `app/lib/v2-scoring.ts` | TS mirror of the Python scoring engine |
+| `app/globals.css` + `app/app.css` | Tailwind v4 entry + Fiori design tokens/component styles |
+| `app/api/cases/route.ts` | Serves `data/cases.json` |
+| `scripts/build_cases.py` | Builds `data/cases.json` from `datasets/*.csv` via Ian's engine |
+| `../docs/v2-scoring-plan.md` | Scoring logic behind `riskScore`/`queueScore`/`priority` |
 | `../docs/ARCHITECTURE.md` | System design context |
 
 ---
 
-## 📖 Example: Adding a New Column
-
-To add a new column to the table (e.g., "Company ID"):
-
-1. **Update CaseRow type:**
-   ```typescript
-   interface CaseRow {
-     companyId: string;  // Add this
-     ...
-   }
-   ```
-
-2. **Update API mock data** in `app/api/cases/route.ts`:
-   ```typescript
-   {
-     companyId: "CMPNY-123",  // Add this
-     ...
-   }
-   ```
-
-3. **Add table header** in `CaseTable.tsx` (around line ~290):
-   ```typescript
-   <th className="...">Company ID</th>
-   ```
-
-4. **Add table cell** (around line ~340):
-   ```typescript
-   <td className="px-4 py-2.5 text-xs">{row.companyId}</td>
-   ```
-
-5. **Optionally make sortable:**
-   ```typescript
-   type SortKey = 'priority' | 'caseName' | 'companyId' | ...
-   
-   // In sort handler:
-   if (sortKey === 'companyId') cmp = a.companyId.localeCompare(b.companyId)
-   ```
-
-6. **Test:** `npm run dev` → http://localhost:3000/cases → Check new column appears
-
----
-
-## 🆘 Troubleshooting
-
-| Problem | Solution |
-|---------|----------|
-| Table shows "Loading..." forever | Check `/api/cases` returns data: `curl http://localhost:3000/api/cases` |
-| Tooltip doesn't appear on hover | Verify `jouleExplanation` is truthy in mock data |
-| Sorting doesn't work | Check `handleSort()` function; ensure `sortKey` is in PRIORITY_ORDER |
-| CSS looks broken | Run `npm install` + restart dev server |
-| Rows don't filter | Check filter state; verify filtering logic in `filtered` array computation |
-
----
-
-## 💡 Pro Tips
-
-1. **Inspect state:** Add `console.log(rows, filterPriority, sortKey)` in render to debug
-2. **Test API:** Use `curl http://localhost:3000/api/cases | jq` to inspect data
-3. **DevTools:** Use React DevTools to inspect component state / props
-4. **CSS tweaks:** All colors are in `PRIORITY_STYLES` and `STATUS_STYLES` dicts at top of file
-5. **Performance:** Check browser DevTools Performance tab if table gets slow with 100+ rows
-
----
-
-**Last updated:** 2026-07-31  
+**Last updated:** 2026-07-31
 **Maintained by:** Marcus (Frontend)

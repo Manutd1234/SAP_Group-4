@@ -19,7 +19,7 @@ dist/
 downloads/
 eggs/
 .eggs/
-lib/
+/lib/
 lib64/
 parts/
 sdist/
@@ -233,6 +233,7 @@ dist/
 .local/
 **/.venv/
 **/__pycache__/
+tsconfig.tsbuildinfo
 
 # Keep the source-side Sites build integration.
 !build/
