@@ -15,6 +15,8 @@ interface CaseTableProps {
   filters: CaseFilters;
   onFilterChange: (filters: Partial<CaseFilters>) => void;
   onRowSelect: (caseId: string) => void;
+  onCloseCase?: (caseId: string) => void;
+  onReopenCase?: (caseId: string) => void;
 }
 
 function PriorityBadge({ priority }: { priority: Priority }) {
@@ -71,6 +73,8 @@ const STATUS_FILTER_OPTIONS: Array<{ value: DisplayStatus | 'all'; label: string
 export default function CaseTable({ rows, filters, onFilterChange, onRowSelect }: CaseTableProps) {
   const [sortKey, setSortKey] = useState<SortKey>('queueScore');
   const [sortAsc, setSortAsc] = useState(false);
+  const [page, setPage] = useState(1);
+  const [pageSize, setPageSize] = useState<number>(50);
 
   const handleSort = (key: SortKey) => {
     if (sortKey === key) setSortAsc((v) => !v);
@@ -96,6 +100,10 @@ export default function CaseTable({ rows, filters, onFilterChange, onRowSelect }
       return sortAsc ? cmp : -cmp;
     });
 
+  const totalPages = Math.max(1, Math.ceil(filtered.length / pageSize));
+  const currentPage = Math.min(page, totalPages);
+  const paged = filtered.slice((currentPage - 1) * pageSize, currentPage * pageSize);
+
   const columns: Array<{ key: SortKey; label: string }> = [
     { key: 'priority', label: 'Priority' },
     { key: 'legalName', label: 'Case' },
@@ -105,8 +113,8 @@ export default function CaseTable({ rows, filters, onFilterChange, onRowSelect }
   ];
 
   return (
-    <div className="bg-white border border-[#d9dbdd] rounded shadow-sm">
-      <div className="px-4 py-3 border-b border-[#d9dbdd] flex flex-wrap items-center gap-3">
+    <div className="bg-white border border-[#d9dbdd] rounded-[4px] shadow-sm overflow-hidden">
+      <div className="px-4 py-3 border-b border-[#d9dbdd] flex flex-wrap items-center gap-3 bg-[#f5f6f7]">
         <div className="relative flex-1 min-w-[180px] max-w-xs">
           <svg className="absolute left-2.5 top-1/2 -translate-y-1/2 text-[#6a7d8f]" width="13" height="13" viewBox="0 0 13 13" fill="none">
             <circle cx="5.5" cy="5.5" r="4" stroke="currentColor" strokeWidth="1.5" />
@@ -114,21 +122,29 @@ export default function CaseTable({ rows, filters, onFilterChange, onRowSelect }
           </svg>
           <input
             type="text"
-            placeholder="Search cases…"
+            placeholder={rows.length > 0 ? "Search cases…" : "0 cases loaded (Engine Standby)"}
             value={filters.search}
-            onChange={(e) => onFilterChange({ search: e.target.value })}
-            className="w-full pl-8 pr-3 py-1.5 text-xs border border-[#d9dbdd] rounded focus:outline-none focus:ring-2 focus:ring-[#0070f2]/40 focus:border-[#0070f2] bg-[#f5f6f7] transition"
+            onChange={(e) => {
+              onFilterChange({ search: e.target.value });
+              setPage(1);
+            }}
+            className="w-full pl-8 pr-3 py-1.5 text-xs border border-[#d9dbdd] rounded-[4px] focus:outline-none focus:ring-2 focus:ring-[#0070f2]/40 focus:border-[#0070f2] bg-white transition"
           />
         </div>
 
         <select
           value={filters.priority}
-          onChange={(e) => onFilterChange({ priority: e.target.value as Priority | 'all' })}
-          className="pl-3 pr-8 py-1.5 text-xs border border-[#d9dbdd] rounded focus:outline-none focus:ring-2 focus:ring-[#0070f2]/40 bg-[#f5f6f7] text-[#1d2d3e] cursor-pointer"
+          onChange={(e) => {
+            onFilterChange({ priority: e.target.value as Priority | 'all' });
+            setPage(1);
+          }}
+          className="appearance-none pl-3 pr-8 py-1.5 text-xs border border-[#d9dbdd] rounded focus:outline-none focus:ring-2 focus:ring-[#0070f2]/40 focus:border-[#0070f2] bg-[#f5f6f7] text-[#1d2d3e] cursor-pointer shadow-2xs transition"
           style={{
+            WebkitAppearance: 'none',
+            MozAppearance: 'none',
             backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%236a7d8f' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E")`,
             backgroundRepeat: 'no-repeat',
-            backgroundPosition: 'right 8px center',
+            backgroundPosition: 'right 10px center',
           }}
         >
           {PRIORITY_FILTER_OPTIONS.map((o) => (
@@ -140,12 +156,17 @@ export default function CaseTable({ rows, filters, onFilterChange, onRowSelect }
 
         <select
           value={filters.status}
-          onChange={(e) => onFilterChange({ status: e.target.value as DisplayStatus | 'all' })}
-          className="pl-3 pr-8 py-1.5 text-xs border border-[#d9dbdd] rounded focus:outline-none focus:ring-2 focus:ring-[#0070f2]/40 bg-[#f5f6f7] text-[#1d2d3e] cursor-pointer"
+          onChange={(e) => {
+            onFilterChange({ status: e.target.value as DisplayStatus | 'all' });
+            setPage(1);
+          }}
+          className="appearance-none pl-3 pr-8 py-1.5 text-xs border border-[#d9dbdd] rounded focus:outline-none focus:ring-2 focus:ring-[#0070f2]/40 focus:border-[#0070f2] bg-[#f5f6f7] text-[#1d2d3e] cursor-pointer shadow-2xs transition"
           style={{
+            WebkitAppearance: 'none',
+            MozAppearance: 'none',
             backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%236a7d8f' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E")`,
             backgroundRepeat: 'no-repeat',
-            backgroundPosition: 'right 8px center',
+            backgroundPosition: 'right 10px center',
           }}
         >
           {STATUS_FILTER_OPTIONS.map((o) => (
@@ -179,44 +200,109 @@ export default function CaseTable({ rows, filters, onFilterChange, onRowSelect }
             </tr>
           </thead>
           <tbody>
-            {filtered.map((row, idx) => (
-              <tr
-                key={row.caseId}
-                onClick={() => onRowSelect(row.caseId)}
-                className={`border-b border-[#eaecee] hover:bg-[#eaf4ff] transition-colors cursor-pointer ${
-                  idx % 2 === 0 ? 'bg-white' : 'bg-[#fafbfc]'
-                } ${row.priority === 'closed' ? 'opacity-60' : ''}`}
-              >
-                <td className="px-4 py-2.5">
-                  <PriorityBadge priority={row.priority} />
-                </td>
-                <td className="px-4 py-2.5">
-                  <div className="font-medium text-[#1d2d3e] text-sm leading-tight">{row.legalName}</div>
-                  <div className="text-xs text-[#6a7d8f] font-mono mt-0.5">
-                    {row.caseNumber} · {row.caseType ?? '—'}
+            {rows.length === 0 ? (
+              <tr>
+                <td colSpan={7} className="px-4 py-12 text-center text-[#6a7d8f] bg-[#fafbfc]">
+                  <div className="text-[#1d2d3e] font-bold text-sm mb-1">No cases loaded (Engine Standby)</div>
+                  <div className="text-xs text-[#6a7d8f] max-w-md mx-auto">
+                    Screening engine is currently standby. Click &quot;▶ RUN SCREENING PIPELINE&quot; on the Dashboard tab to populate corporate entity cases.
                   </div>
                 </td>
-                <td className="px-4 py-2.5">
-                  <RiskBar score={row.riskScore} />
-                </td>
-                <td className="px-4 py-2.5 text-xs text-[#1d2d3e] tabular-nums font-mono">{row.queueScore}</td>
-                <td className="px-4 py-2.5 text-xs text-[#1d2d3e] tabular-nums font-mono whitespace-nowrap">{row.daysElapsed}d</td>
-                <td className="px-4 py-2.5">
-                  <StatusBadge status={displayStatus(row)} />
-                </td>
-                <td className="px-4 py-2.5 text-xs text-[#1d2d3e] tabular-nums whitespace-nowrap">{formatUsd(row.amountUsd)}</td>
               </tr>
-            ))}
-            {filtered.length === 0 && (
+            ) : filtered.length === 0 ? (
               <tr>
                 <td colSpan={7} className="px-4 py-12 text-center text-sm text-[#6a7d8f]">
                   No cases match the current filter.
                 </td>
               </tr>
+            ) : (
+              paged.map((row, idx) => (
+                <tr
+                  key={row.caseId}
+                  onClick={() => onRowSelect(row.caseId)}
+                  className={`border-b border-[#eaecee] hover:bg-[#eaf4ff] transition-colors cursor-pointer ${
+                    idx % 2 === 0 ? 'bg-white' : 'bg-[#fafbfc]'
+                  } ${row.priority === 'closed' ? 'opacity-60' : ''}`}
+                >
+                  <td className="px-4 py-2.5">
+                    <PriorityBadge priority={row.priority} />
+                  </td>
+                  <td className="px-4 py-2.5">
+                    <div className="font-medium text-[#1d2d3e] text-sm leading-tight">{row.legalName}</div>
+                    <div className="text-xs text-[#6a7d8f] font-mono mt-0.5">
+                      {row.caseNumber} · {row.caseType ?? '—'}
+                    </div>
+                  </td>
+                  <td className="px-4 py-2.5">
+                    <RiskBar score={row.riskScore} />
+                  </td>
+                  <td className="px-4 py-2.5 text-xs text-[#1d2d3e] tabular-nums font-mono">{row.queueScore}</td>
+                  <td className="px-4 py-2.5 text-xs text-[#1d2d3e] tabular-nums font-mono whitespace-nowrap">{row.daysElapsed}d</td>
+                  <td className="px-4 py-2.5">
+                    <StatusBadge status={displayStatus(row)} />
+                  </td>
+                  <td className="px-4 py-2.5 text-xs text-[#1d2d3e] tabular-nums whitespace-nowrap">{formatUsd(row.amountUsd)}</td>
+                </tr>
+              ))
             )}
           </tbody>
         </table>
       </div>
+
+      {filtered.length > 0 && (
+        <div className="px-4 py-2.5 border-t border-[#d9dbdd] flex items-center justify-between text-xs text-[#6a7d8f] bg-[#fafbfc]">
+          <div className="flex items-center gap-2">
+            <span>Show</span>
+            <select
+              value={pageSize}
+              onChange={(e) => {
+                setPageSize(Number(e.target.value));
+                setPage(1);
+              }}
+              className="appearance-none pl-2.5 pr-7 py-1 border border-[#d9dbdd] rounded bg-white text-[#1d2d3e] cursor-pointer focus:outline-none focus:ring-2 focus:ring-[#0070f2]/40 focus:border-[#0070f2] transition"
+              style={{
+                WebkitAppearance: 'none',
+                MozAppearance: 'none',
+                backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%236a7d8f' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E")`,
+                backgroundRepeat: 'no-repeat',
+                backgroundPosition: 'right 8px center',
+              }}
+            >
+              <option value={25}>25 per page</option>
+              <option value={50}>50 per page</option>
+              <option value={100}>100 per page</option>
+              <option value={250}>250 per page</option>
+              <option value={Math.max(100000, rows.length)}>All ({filtered.length})</option>
+            </select>
+          </div>
+
+          <div className="flex items-center gap-2">
+            <span>
+              Page <span className="font-semibold text-[#1d2d3e]">{currentPage}</span> of{' '}
+              <span className="font-semibold text-[#1d2d3e]">{totalPages}</span>
+            </span>
+
+            <div className="flex items-center gap-1 ml-2">
+              <button
+                type="button"
+                disabled={currentPage <= 1}
+                onClick={() => setPage((p) => Math.max(1, p - 1))}
+                className="px-2.5 py-1 border border-[#d9dbdd] rounded bg-white hover:bg-[#f5f6f7] disabled:opacity-40 disabled:cursor-not-allowed text-[#1d2d3e] font-medium transition"
+              >
+                Previous
+              </button>
+              <button
+                type="button"
+                disabled={currentPage >= totalPages}
+                onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
+                className="px-2.5 py-1 border border-[#d9dbdd] rounded bg-white hover:bg-[#f5f6f7] disabled:opacity-40 disabled:cursor-not-allowed text-[#1d2d3e] font-medium transition"
+              >
+                Next
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

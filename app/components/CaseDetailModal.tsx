@@ -10,6 +10,7 @@ interface CaseDetailModalProps {
   queueWeights: Record<string, number>;
   onClose: () => void;
   onCloseCase: (caseId: string) => void;
+  onReopenCase: (caseId: string) => void;
   onEscalate: (caseId: string, target: Priority) => void;
 }
 
@@ -35,6 +36,7 @@ export default function CaseDetailModal({
   queueWeights,
   onClose,
   onCloseCase,
+  onReopenCase,
   onEscalate,
 }: CaseDetailModalProps) {
   const dialogRef = useRef<HTMLDivElement>(null);
@@ -76,11 +78,12 @@ export default function CaseDetailModal({
 
   if (!caseRecord) return null;
   const c = caseRecord;
+  const isClosed = c.status === 'CLOSED' || c.priority === 'closed';
 
   const escalateOptions = (Object.keys(PRIORITY_ORDER) as Priority[]).filter(
     (p) => p !== 'closed' && PRIORITY_ORDER[p] < PRIORITY_ORDER[c.priority]
   );
-  const canEscalate = escalateOptions.length > 0 && c.status !== 'CLOSED';
+  const canEscalate = escalateOptions.length > 0 && !isClosed;
 
   return (
     <div
