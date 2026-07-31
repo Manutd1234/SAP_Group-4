@@ -124,7 +124,7 @@ npm run data:build
 
 This reads `datasets/*.csv`, joins cases → alerts → transactions/companies/beneficial-owners/countries, calls `calculate_v2_risk_score()` from Ian's engine for every case, applies the priority cascade (closed → regulatory → overdue → medium → low), and writes:
 - `data/cases.json` — the artifact the frontend serves (prints a 5-bucket priority histogram; fails the build if any bucket is empty or the artifact exceeds 2.5 MB)
-- `data/scoring-parity-fixture.json` — ~60 stratified records (real + synthetic edge cases) with the Python engine's exact output, used by `tests/scoring-parity.test.mjs` to catch TS/Python drift
+- `data/scoring-parity-fixture.json` — ~57 stratified records (real + synthetic edge cases) with the Python engine's exact output, used by `tests/scoring-parity.test.mjs` to catch TS/Python drift
 
 ### Train the ML model (unrelated to the case dashboard, advanced/optional)
 
